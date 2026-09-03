@@ -198,4 +198,25 @@
       });
     });
   }
+
+  /* ── 7. 3D 舞台的 HUD：按镜头进度切换文字 ── */
+  const stage3d = document.getElementById('stage3d');
+  const hud = [...document.querySelectorAll('.hud-item')];
+  if (stage3d && hud.length) {
+    const n = hud.length;
+    const upd = () => {
+      const r = stage3d.getBoundingClientRect();
+      const total = stage3d.offsetHeight - innerHeight;
+      const p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+      // 把 [0,1] 切成 n 段，每段亮一条
+      // 进度切成 n+1 段：最后一段留白，让镜头收尾时文字先退场
+      const seg = 1 / (n + 0.35);
+      const idx = Math.floor(p / seg);
+      hud.forEach((el, i) => el.classList.toggle('on', i === idx));
+      document.body.classList.toggle('scrolled', p > 0.02);
+    };
+    addEventListener('scroll', upd, { passive: true });
+    addEventListener('load', upd);
+    upd(); requestAnimationFrame(upd);   // 布局稳定后再算一次
+  }
 })();

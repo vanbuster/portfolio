@@ -224,3 +224,42 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair);background:var(--aby
 
 /* 场景视差层 */
 [data-depth]{will-change:transform}
+
+/* ───────── 3D 镜头推进舞台 ───────── */
+.stage3d{position:relative;height:400vh}      /* 滚动行程 = 镜头行程 */
+#scene3d{position:sticky;top:0;left:0;width:100vw;height:100svh;display:block}
+.w3-data{display:none}
+
+/* HUD：文字覆盖层，跟着镜头进度切换 */
+.hud{position:fixed;inset:0;pointer-events:none;z-index:10;
+  display:flex;align-items:center}
+.hud .wrap{width:100%;position:relative;min-height:230px}
+.hud-item{position:absolute;left:30px;top:0;max-width:520px;
+  opacity:0;transform:translateY(26px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.hud-item.on{opacity:1;transform:none}
+.hud-item .n{font-size:12px;letter-spacing:2.4px;color:var(--periwinkle);margin-bottom:10px}
+.hud-item h2{font-size:clamp(34px,5.4vw,64px);font-weight:700;letter-spacing:-1px;
+  line-height:1.08;color:var(--t-hi);
+  text-shadow:0 4px 30px rgba(6,16,22,.75)}
+.hud-item p{margin-top:12px;font-size:16.5px;color:var(--t);max-width:440px;
+  text-shadow:0 2px 16px rgba(6,16,22,.8)}
+.hud-item a{pointer-events:auto;display:inline-block;margin-top:18px;font-size:13.5px;
+  color:var(--t-mid);border-bottom:1px solid var(--line);padding-bottom:2px;
+  transition:color .3s,border-color .3s}
+.hud-item a:hover{color:var(--periwinkle);border-color:var(--periwinkle)}
+@media(max-width:760px){.hud-item{left:24px;right:24px}}
+
+.cue3d{position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:11;
+  font-size:11px;letter-spacing:2.6px;color:var(--t-low);pointer-events:none;
+  display:flex;align-items:center;gap:12px;
+  transition:opacity .5s}
+.cue3d i{display:block;width:44px;height:1px;background:var(--t-low);opacity:.5}
+.scrolled .cue3d{opacity:0}
+
+/* 有 3D 时隐藏降级列表；无 3D 时反过来 */
+body.has3d .fallback{display:none}
+body:not(.has3d) .stage3d{display:none}
+body:not(.has3d) .gl-host{display:block}
+body.has3d .gl-host{display:none}          /* 3D 自带背景，水面着色器只服务下方内容 */
+body.has3d .detail:first-of-type{border-top:1px solid var(--hair)}
