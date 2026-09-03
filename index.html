@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>卢万凌 · 作品集</title>
+<meta name="description" content="三个自建自用的 AI 产品：PRD Copilot（质量门禁管线）、数字分身（本地人格引擎）、墨卦（八字排盘网页）。">
+<meta property="og:title" content="卢万凌 · 作品集">
+<meta property="og:description" content="三个自建自用的 AI 产品。">
+<link rel="stylesheet" href="css/main.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+</head>
+<body>
+
+<div class="gl-host"><canvas id="glcanvas"></canvas></div>
+
+<header class="top">
+  <span class="me">卢万凌</span>
+  <span class="role">AI 产品经理 · 2027 届</span>
+  <nav>
+    <a href="#about">关于</a>
+    <a href="#contact">联系</a>
+  </nav>
+</header>
+
+<!-- ══════ 第一屏：作品本身 ══════ -->
+<main class="stage">
+  <div class="wrap">
+    <div class="worklist">
+
+      <a class="wl" href="#w1" data-img="assets/img/prd-console.jpg">
+        <span class="n">01</span>
+        <span class="mid">
+          <span class="ttl">PRD Copilot</span>
+          <span class="sub">三道门禁。第一轮，它拒绝了我自己。</span>
+        </span>
+        <span class="tg">Agent SDK · 质量门</span>
+      </a>
+
+      <a class="wl" href="#w2" data-img="assets/img/twin-stack.jpg">
+        <span class="n">02</span>
+        <span class="mid">
+          <span class="ttl">数字分身</span>
+          <span class="sub">把"像一个人"拆成两件事：语气，和别瞎编。</span>
+        </span>
+        <span class="tg">本地离线 · RAG</span>
+      </a>
+
+      <a class="wl" href="#w3" data-img="assets/img/mogua-chart.jpg">
+        <span class="n">03</span>
+        <span class="mid">
+          <span class="ttl">墨卦</span>
+          <span class="sub">命令行里的算法，搬进任何人的浏览器。</span>
+        </span>
+        <span class="tg">零构建 · BYOK</span>
+      </a>
+
+    </div>
+    <div class="cue"><i></i>向下看细节</div>
+  </div>
+  <div class="peek" aria-hidden="true"><img alt=""></div>
+</main>
+
+<!-- ══════ 01 ══════ -->
+<section class="detail" id="w1">
+  <div class="wrap">
+    <div class="d-no">01</div>
+    <h3 class="rv">PRD Copilot</h3>
+    <div class="lead rv">重点在生成之后。</div>
+
+    <p class="rv">
+      我自己写的第一版 PRD，验收标准里有一句"用户体验流畅"。评审会上这句话根本没法讨论——
+      多流畅算流畅？谁来判？后来我发现 AI 写 PRD 会成批产出这种句子，
+      而且<b>版式上和真正的验收标准长得一模一样</b>。
+    </p>
+
+    <div class="cols">
+      <div class="cell rv"><h4>门 1 · 红线扫描</h4>
+        <p>全文 Grep <b>13 条红线</b>与空洞形容词表。机械可判，命中即改写成量化表述再重扫。</p></div>
+      <div class="cell rv"><h4>门 2 · 结构自检</h4>
+        <p><b>14 项</b>逐条核对。最关键的是数据引用查验：引用调研数据必须有来源，否则强制标"假设值，需验证"。</p></div>
+      <div class="cell rv"><h4>门 3 · 独立评审</h4>
+        <p>起一个<b>独立上下文</b>的评审子代理，只喂 PRD 全文与 rubric，<b>不喂生成过程</b>。</p></div>
+    </div>
+
+    <div class="quote rv">
+      为什么门 3 必须换上下文：<b>生成者给自己打分会分数通胀</b>——
+      它知道自己"当时是怎么想的"，会替自己把逻辑补全。一旦发生，门禁就失去公信力。
+    </div>
+
+    <div class="quote warn rv">
+      <b>最能说明门禁有效的，是它先拒绝了一次。</b>
+      第 1 轮判 §1.3 竞品断言无来源为 P0，拒绝放行；第 2 轮补样本与假设标注后 P0 清零通过。
+      两处非 P0 扣分<b>未修，如实留在报告里</b>。
+    </div>
+
+    <p class="rv">
+      放行条件是 <b>P0 清零，不看分数</b>。分数是连续值容易被写得好看拉高，P0 是离散硬伤。
+      重写最多 2 轮，修不好就交人裁决——不死循环，不谎报通过。
+    </p>
+
+    <div class="nogoal rv">
+      <div class="hd">我明确没做的</div>
+      <ul>
+        <li><b>不留"待定 / TBD"</b>——必须给建议值加假设条件。留 TBD 等于把问题推给下一个人。</li>
+        <li><b>不做网页版的提示词</b>。控制台一行提示词逻辑都没有，全跑 skill 本身。两套必然漂移。</li>
+        <li><b>不做自评冒充独立评审</b>。起不了子代理时直接标「⚠ 自评模式」，宁可难看也不假装。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 02 ══════ -->
+<section class="detail" id="w2">
+  <div class="wrap">
+    <div class="d-no">02</div>
+    <h3 class="rv">数字分身</h3>
+    <div class="lead rv">语气和事实，必须分开调。</div>
+
+    <p class="rv">
+      常见做法是把聊天记录一股脑塞进提示词或者微调。结果两个问题耦合在一起：
+      <b>语气像不像</b>，和<b>内容瞎不瞎编</b>。混在同一个机制里，调好一个必然弄坏另一个。
+    </p>
+
+    <div class="cols">
+      <div class="cell rv"><h4>路径 A · 人格设定</h4><p>只管<b>语气风格</b>——怎么说话。</p></div>
+      <div class="cell rv"><h4>路径 B · 历史召回</h4><p>只管<b>不瞎编</b>——说什么是真的。</p></div>
+      <div class="cell rv"><h4>结果</h4><p>改人格不影响事实准确性，改检索不影响说话风格。</p></div>
+    </div>
+
+    <p class="rv">
+      检索走三级降级：<b>bge 语义向量 → 字符级 TF-IDF → none</b>。
+      embedding 要模型服务在线，服务一挂纯 embedding 方案直接不可用；
+      TF-IDF 零依赖可冷启动，中文短文本上效果并不差。代价是多维护一条链路，
+      换来<b>可用性不依赖单点</b>。
+    </p>
+
+    <div class="quote rv">
+      <span class="mono">mood.anger_half_life_hours</span> —— <b>脾气半衰期</b>。
+      生气的强度每过 N 小时衰减一半。不用定时器清零，是因为情绪骤降不自然；
+      而半衰期只要存一个时间戳就能推算任意时刻的强度，<b>不需要后台轮询</b>。
+    </div>
+
+    <div class="quote rv">
+      检索与生成全程留 trace：本次召回用了哪个 mode、索引版本、当前状态、
+      候选条数与阈值过滤后条数，都可回看。<b>做评测出身的习惯——效果不好时要能定位到哪一段出的问题，
+      而不是笼统地"再调调提示词"。</b>
+    </div>
+
+    <div class="quote warn rv">
+      <b>隐私：</b>全链路本地运行，对话数据不出本机。<b>这个项目的后台截图我一张都没放</b>——人格引擎的配置里必然带着关于对方的推断，那些不属于我，不该出现在我的求职材料里。本页只讲架构。<b>做数据相关的产品，把别人的隐私当自己的红线，是最低要求。</b>
+    </div>
+
+    <div class="nogoal rv">
+      <div class="hd">我明确没做的</div>
+      <ul>
+        <li><b>不上云</b>。云端更快更好，但这个项目的数据性质决定了它不能上云。</li>
+        <li><b>不做微调</b>，走检索。微调把人格和事实焊死在一起，改一个动全身。</li>
+        <li><b>不做多用户</b>。它是给我自己用的，复杂度该花在人格引擎上，不是登录注册。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 03 ══════ -->
+<section class="detail" id="w3">
+  <div class="wrap">
+    <div class="d-no">03</div>
+    <h3 class="rv">墨卦</h3>
+    <div class="lead rv">一次典型的"可用性 ≠ 可达性"。</div>
+
+    <p class="rv">
+      起点是一个开源的八字 skill，功能完整，但<b>只有装了命令行工具的人才能用</b>。
+      它的潜在用户被工具门槛挡在外面。我做的是把同样的算法换成任何人打开浏览器就能用的形态。
+    </p>
+
+    <div class="cols">
+      <div class="cell rv"><h4>零构建零依赖</h4>
+        <p>纯 HTML/CSS/JS，历法库 vendor 到本地。<b>没有构建产物就没有构建失败</b>，十年后还能打开。</p></div>
+      <div class="cell rv"><h4>BYOK 密钥模式</h4>
+        <p>AI 深读用用户自带 key，只存本机。<b>不碰用户密钥</b>；规则引擎不依赖 AI，不填 key 照样能用。</p></div>
+      <div class="cell rv"><h4>口径严格对齐</h4>
+        <p>年柱以立春为界、23:00 后日柱算次日，与原 skill 一致。<b>同一个人两处算出不同结果，产品就废了。</b></p></div>
+    </div>
+
+    <div class="shots">
+      <figure class="sh rv"><img src="assets/img/mogua-home.jpg" alt="墨卦首页" loading="lazy">
+        <figcaption>首页：四入口 + 今日黄历。</figcaption></figure>
+      <figure class="sh rv"><img src="assets/img/mogua-qigua.jpg" alt="起卦页" loading="lazy">
+        <figcaption>起卦：临时 / 数字 / 铜钱摇卦，输出本卦·互卦·变卦与体用生克。</figcaption></figure>
+    </div>
+
+    <div class="quote rv">
+      有一处我做了简化并且<b>在页面上直接标注了</b>：梅花易数多爻动时体用取最上一动爻，
+      这是简化约定而非唯一解法。<b>产品可以简化，但不能让用户以为它没被简化。</b>
+    </div>
+
+    <div class="nogoal rv">
+      <div class="hd">我明确没做的</div>
+      <ul>
+        <li><b>不做后端</b>。没有服务器就没有用户数据，也就没有我保管不好别人密钥的可能。</li>
+        <li><b>不让 AI 成为必需品</b>。不填 key 也能拿到完整的规则引擎结论。</li>
+        <li><b>不做账号、付费、留存</b>。这是个玩具，玩具就该打开即用、关掉即走。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 关于 ══════ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <h3 class="rv">三段实习，其实是同一个问题的三种问法。</h3>
+    <p class="rv">
+      在千方，问题是"模型说有事故，能信吗"；在理想，是"它把任务拆错了，怎么知道是谁的错"；
+      在字节，是"这个模型到底行不行，凭什么这么说"。三次都在给"好"下定义。
+    </p>
+
+    <div class="tl">
+      <div class="row rv">
+        <div class="when">2026.06 — 至今</div>
+        <div class="what"><b>字节跳动</b><span>豆包大模型 · Ocean 产品团队</span>
+          <p>手机助手与可穿戴硬件的大模型评测。设计了多 Agent 前置环境生成工作流，
+             把拿不到的隐私数据"造"出来，一次通过率 90.4%，现为团队评测集构建的固定一环。</p></div>
+      </div>
+      <div class="row rv">
+        <div class="when">2025.12 — 2026.05</div>
+        <div class="what"><b>理想汽车</b><span>智能座舱 · 智能空间产品团队</span>
+          <p>车载 Agent 的任务规划链路与评测体系。难的不是把一句话拆成 7 步，
+             是拆错了以后能定位到是谁错了——所以定了「黄金 schedule」diff 判定机制。
+             工具调用准确率 78.3% → 95.4%。</p></div>
+      </div>
+      <div class="row rv">
+        <div class="when">2025.06 — 2025.11</div>
+        <div class="what"><b>千方科技</b><span>智慧交通 · Omni-T 智慧高速预警</span>
+          <p>在高速监控中心跟班三天。那三天教会我一件后来一直在用的事：
+             <b>指标是可以被"用错误的方式"做上去的</b>——只看告警采纳率，系统靠"少报"就能刷高比率。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 页脚 ══════ -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="rv">
+        <div class="big">找我聊聊</div>
+        <p>在找 2027 届 AI 产品经理的岗位，方向是 Agent / 大模型产品 / 模型评测。</p>
+      </div>
+      <div class="links rv">
+        <div><a href="mailto:15679712218@163.com">15679712218@163.com</a></div>
+        <div><a href="https://github.com/vanbuster" target="_blank" rel="noopener">github.com/vanbuster</a></div>
+      </div>
+    </div>
+    <div class="fine">
+      景德镇陶瓷大学 · 人工智能 · 2027 届　｜
+      配色取自莫奈《睡莲》《蓝睡莲》《鲁昂大教堂》的真实采样，背景是手写的域扭曲着色器。
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="js/monet-gl.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
