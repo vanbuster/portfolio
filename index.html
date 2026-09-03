@@ -65,7 +65,7 @@
 <section class="detail" id="w1">
   <div class="wrap">
     <div class="d-no">01</div>
-    <h3 class="rv">PRD Copilot</h3>
+    <h3 class="rv-line">PRD Copilot</h3>
     <div class="lead rv">重点在生成之后。</div>
 
     <p class="rv">
@@ -114,7 +114,7 @@
 <section class="detail" id="w2">
   <div class="wrap">
     <div class="d-no">02</div>
-    <h3 class="rv">数字分身</h3>
+    <h3 class="rv-line">数字分身</h3>
     <div class="lead rv">语气和事实，必须分开调。</div>
 
     <p class="rv">
@@ -147,8 +147,15 @@
       而不是笼统地"再调调提示词"。</b>
     </div>
 
+    <figure class="sh rv-img" style="margin-top:28px">
+      <img src="assets/img/twin-console.jpg" alt="数字分身控制台（已打码）" loading="lazy">
+      <figcaption>控制台：三个依赖的健康态一屏可见，召回链路标注「bge 语义 → tfidf → none 三级降级」，
+        右侧是七态情绪机与 intensity / security 连续量。
+        <b>涉及对方个人数据的字段已打码</b>。</figcaption>
+    </figure>
+
     <div class="quote warn rv">
-      <b>隐私：</b>全链路本地运行，对话数据不出本机。<b>这个项目的后台截图我一张都没放</b>——人格引擎的配置里必然带着关于对方的推断，那些不属于我，不该出现在我的求职材料里。本页只讲架构。<b>做数据相关的产品，把别人的隐私当自己的红线，是最低要求。</b>
+      <b>隐私：</b>全链路本地运行，对话数据不出本机。<b>后台截图只放了一张，且逐字段打码</b>——人格引擎的配置里必然带着关于对方的推断（作息、情绪阈值这类），那些不属于我。能展示的只有架构本身。<b>做数据相关的产品，把别人的隐私当自己的红线，是最低要求。</b>
     </div>
 
     <div class="nogoal rv">
@@ -166,7 +173,7 @@
 <section class="detail" id="w3">
   <div class="wrap">
     <div class="d-no">03</div>
-    <h3 class="rv">墨卦</h3>
+    <h3 class="rv-line">墨卦</h3>
     <div class="lead rv">一次典型的"可用性 ≠ 可达性"。</div>
 
     <p class="rv">
@@ -184,9 +191,9 @@
     </div>
 
     <div class="shots">
-      <figure class="sh rv"><img src="assets/img/mogua-home.jpg" alt="墨卦首页" loading="lazy">
+      <figure class="sh rv-img"><img src="assets/img/mogua-home.jpg" alt="墨卦首页" loading="lazy">
         <figcaption>首页：四入口 + 今日黄历。</figcaption></figure>
-      <figure class="sh rv"><img src="assets/img/mogua-qigua.jpg" alt="起卦页" loading="lazy">
+      <figure class="sh rv-img"><img src="assets/img/mogua-qigua.jpg" alt="起卦页" loading="lazy">
         <figcaption>起卦：临时 / 数字 / 铜钱摇卦，输出本卦·互卦·变卦与体用生克。</figcaption></figure>
     </div>
 
@@ -209,7 +216,7 @@
 <!-- ══════ 关于 ══════ -->
 <section class="about" id="about">
   <div class="wrap">
-    <h3 class="rv">三段实习，其实是同一个问题的三种问法。</h3>
+    <h3 class="rv-line">三段实习，其实是同一个问题的三种问法。</h3>
     <p class="rv">
       在千方，问题是"模型说有事故，能信吗"；在理想，是"它把任务拆错了，怎么知道是谁的错"；
       在字节，是"这个模型到底行不行，凭什么这么说"。三次都在给"好"下定义。
@@ -227,7 +234,7 @@
         <div class="what"><b>理想汽车</b><span>智能座舱 · 智能空间产品团队</span>
           <p>车载 Agent 的任务规划链路与评测体系。难的不是把一句话拆成 7 步，
              是拆错了以后能定位到是谁错了——所以定了「黄金 schedule」diff 判定机制。
-             工具调用准确率 78.3% → 95.4%。</p></div>
+             工具调用准确率 <span data-count="78.3" data-from="60">78.3</span>% → <b><span data-count="95.4" data-from="78.3">95.4</span>%</b>。</p></div>
       </div>
       <div class="row rv">
         <div class="when">2025.06 — 2025.11</div>
@@ -262,7 +269,9 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
 <script src="js/monet-gl.js"></script>
 <script src="js/main.js"></script>
+<script src="js/motion.js"></script>
 </body>
 </html>

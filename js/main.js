@@ -46,36 +46,9 @@
     });
   });
 
-  /* ── 揭示：柔和淡入 + 8px 位移。
-        位移只是给柔边一点"呼吸"，不是主效果。 ── */
-  if (hasGSAP && !REDUCE) {
-    if (window.ScrollTrigger) gsap.registerPlugin(window.ScrollTrigger);
-
-    gsap.set('.w', { opacity: 0, y: 14 });
-    gsap.to('.w', {
-      opacity: 1, y: 0, duration: 1.25, ease: 'power3.out',
-      stagger: 0.14, delay: 0.18,
-    });
-    gsap.from('.top', { opacity: 0, duration: 1.2, delay: 0.05, ease: 'power2.out' });
-    gsap.from('.stage .cue', { opacity: 0, duration: 1, delay: 0.9, ease: 'power2.out' });
-
-    gsap.utils.toArray('.rv').forEach((el) => {
-      gsap.fromTo(el, { opacity: 0, y: 8 }, {
-        opacity: 1, y: 0, duration: 1.1, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-      });
-    });
-
-    // 截图极轻视差。幅度大了像 PPT 转场，这里只取 ±2.5%
-    gsap.utils.toArray('.sh img').forEach((img) => {
-      gsap.fromTo(img, { yPercent: -2.5 }, {
-        yPercent: 2.5, ease: 'none',
-        scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true },
-      });
-    });
-  } else {
-    document.querySelectorAll('.rv, .w').forEach((el) => { el.style.opacity = 1; });
-  }
+  /* 揭示动画已全部移交 js/motion.js。
+     曾经这里也有一套 .rv 的 opacity+y —— 和 motion.js 同时动画同一批元素，
+     导致「关于区」本该只失焦不位移，却混进了 8px 平移。一个元素只能有一个动画主人。 */
 
   /* ── 作品列表：光标跟随预览。
         用 transform 移动 fixed 层，不碰 top/left，避免每帧重排。

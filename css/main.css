@@ -198,3 +198,29 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair);background:var(--aby
   .rv{opacity:1!important}
   .rv-mask{-webkit-mask-image:none!important;mask-image:none!important}
 }
+
+/* ───────── v3 揭示与伪 3D ───────── */
+
+/* 行遮罩：SplitText 的 mask:'lines' 会自动生成 .split-line 父层，
+   这里兜底给手写回退用。中文行高不能低于 1.5，否则遮罩会贴着字切。 */
+.ln-mask{display:block;overflow:hidden}
+.rv-line{line-height:1.55}
+.rv-line,.rv-img{opacity:1}          /* 由 JS 接管，不预先隐藏，避免无 JS 时空白 */
+.no-motion .rv,.no-motion .wl{opacity:1!important}
+
+/* 配图擦出的容器需要自己裁剪 */
+.rv-img{overflow:hidden;will-change:clip-path}
+
+/* 指标数字：等宽数字，否则 1 比 8 窄，跳变时整块文字左右抽搐 */
+[data-count]{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* 作品行 3D：perspective 在父级，被旋转元素开 preserve-3d，
+   子层 translateZ 拉开纵深 —— 这三件缺一不可 */
+.worklist{perspective:1400px}
+.wl{transform-style:preserve-3d;will-change:transform}
+.wl .ttl{transform:translateZ(38px)}
+.wl .sub{transform:translateZ(20px)}
+.wl .n,.wl .tg{transform:translateZ(10px)}
+
+/* 场景视差层 */
+[data-depth]{will-change:transform}
