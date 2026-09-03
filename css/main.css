@@ -42,7 +42,10 @@ body{
   font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;
   font-size:16px;line-height:1.78;
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  /* 必须是 clip 不是 hidden：hidden 会把 overflow-y 计算成 auto，
+     body 变成滚动容器，position:sticky 的参照系错位 → 幻灯片永远不吸顶。
+     clip 只裁剪、不产生滚动容器。 */
+  overflow-x:clip;
 }
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
@@ -263,3 +266,48 @@ body:not(.has3d) .stage3d{display:none}
 body:not(.has3d) .gl-host{display:block}
 body.has3d .gl-host{display:none}          /* 3D 自带背景，水面着色器只服务下方内容 */
 body.has3d .detail:first-of-type{border-top:1px solid var(--hair)}
+
+/* ───────── 堆叠幻灯片（PPT 式）─────────
+   每张 sticky 吸在顶部，下一张滚上来盖住它。
+   出场的那张做轻微缩放+压暗，产生"卡片叠在下面"的层次。 */
+.deck{position:relative}
+.slide{position:sticky;top:0;min-height:100svh;display:flex;align-items:center;
+  padding:96px 0 72px;
+  background:linear-gradient(165deg,var(--deep),var(--abyss) 70%);
+  border-top:1px solid var(--hair);
+  will-change:transform,filter}
+.slide .wrap{width:100%}
+.slide-in{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:clamp(28px,5vw,72px);align-items:center}
+@media(max-width:900px){.slide-in{grid-template-columns:1fr;gap:30px}
+  .slide{min-height:auto;padding:72px 0}}
+
+.slide .idx{font-size:12px;letter-spacing:3px;color:var(--periwinkle)}
+.slide h3{font-size:clamp(30px,4.6vw,54px);font-weight:700;letter-spacing:-1px;
+  line-height:1.1;color:var(--t-hi);margin:14px 0 12px}
+.slide .one{font-size:clamp(16px,1.5vw,19px);color:var(--t);line-height:1.7;max-width:460px}
+.slide .pts{margin-top:26px;display:grid;gap:13px;max-width:470px}
+.slide .pt{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;
+  font-size:14.5px;color:var(--t-mid);line-height:1.65}
+.slide .pt b{color:var(--t-hi);font-weight:600}
+.slide .pt i{font-style:normal;color:var(--periwinkle);font-size:12px;padding-top:3px;
+  font-variant-numeric:tabular-nums}
+.slide .more{display:inline-block;margin-top:26px;font-size:13.5px;color:var(--t-mid);
+  border-bottom:1px solid var(--line);padding-bottom:2px;transition:color .3s,border-color .3s}
+.slide .more:hover{color:var(--periwinkle);border-color:var(--periwinkle)}
+
+.slide .visual{position:relative;border:1px solid var(--hair);border-radius:4px;
+  overflow:hidden;background:var(--surface);
+  box-shadow:0 30px 90px rgba(4,12,18,.55)}
+.slide .visual img{width:100%;display:block}
+.slide .visual figcaption{padding:11px 15px;font-size:12px;color:var(--t-low);
+  border-top:1px solid var(--hair);line-height:1.6}
+/* 浅色截图沉进水色，与全站一致 */
+.slide .visual.tinted::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(172deg,rgba(66,105,125,.16),rgba(16,36,46,.52));
+  mix-blend-mode:multiply}
+
+/* 视觉区高度必须锁死：聊天截图原图很高，不锁会把整张幻灯撑出一屏，
+   标题被挤到视口外，堆叠效果就废了 */
+.slide .visual img{max-height:58svh;object-fit:cover;object-position:top center}
+@media(max-width:900px){.slide .visual img{max-height:44svh}}

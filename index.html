@@ -82,6 +82,76 @@
   <div class="peek" aria-hidden="true"><img alt=""></div>
 </main>
 
+
+<!-- ══════ 堆叠幻灯片：三个作品各一屏 ══════ -->
+<div class="deck">
+
+  <section class="slide" id="s1">
+    <div class="wrap"><div class="slide-in">
+      <div>
+        <div class="idx">01 — 开源 · Claude Agent SDK</div>
+        <h3 class="rv-line">PRD Copilot</h3>
+        <p class="one rv">写 PRD 的痛点不是不会写格式，是 AI 写出来的东西
+          <b>看着完整、实际全是空洞形容词</b>。所以我把重心放在生成之后。</p>
+        <div class="pts">
+          <div class="pt rv"><i>01</i><span><b>三道门禁</b>：红线扫描 → 结构自检 → 独立上下文评审</span></div>
+          <div class="pt rv"><i>02</i><span><b>它先拒绝了我自己</b>：第 1 轮判「竞品断言无来源」为 P0，不放行</span></div>
+          <div class="pt rv"><i>03</i><span><b>放行看 P0 清零，不看分数</b>——分数会被写得好看拉高</span></div>
+        </div>
+        <a class="more" href="#w1">完整拆解 →</a>
+      </div>
+      <figure class="visual rv-img">
+        <img src="assets/img/prd-console.jpg" alt="PRD Copilot 质量门报告" loading="lazy">
+        <figcaption>管线自动回填的质量门报告：两处非 P0 扣分未修，如实保留。</figcaption>
+      </figure>
+    </div></div>
+  </section>
+
+  <section class="slide" id="s2">
+    <div class="wrap"><div class="slide-in">
+      <div>
+        <div class="idx">02 — 本地离线 · Ollama + RAG + 语音克隆</div>
+        <h3 class="rv-line">数字分身</h3>
+        <p class="one rv">把「像一个人」拆成两件独立的事：
+          <b>语气</b>归人格设定管，<b>别瞎编</b>归历史召回管。混在一起调好一个必坏另一个。</p>
+        <div class="pts">
+          <div class="pt rv"><i>01</i><span><b>人格与召回分离</b>：改语气不影响事实，改检索不影响风格</span></div>
+          <div class="pt rv"><i>02</i><span><b>三级降级</b>：bge 语义 → 字符级 TF-IDF → none，可用性不依赖单点</span></div>
+          <div class="pt rv"><i>03</i><span><b>脾气半衰期</b>：情绪强度按时间衰减，存时间戳即可推算，不轮询</span></div>
+        </div>
+        <a class="more" href="#w2">完整拆解 →</a>
+      </div>
+      <figure class="visual rv-img">
+        <img src="assets/img/twin-chat.jpg" alt="数字分身对话界面（示例对话）" loading="lazy">
+        <figcaption>微信式对话前端：多条连发、语音回复、历史召回。
+          <b>示例对话，非真实聊天内容</b>。</figcaption>
+      </figure>
+    </div></div>
+  </section>
+
+  <section class="slide" id="s3">
+    <div class="wrap"><div class="slide-in">
+      <div>
+        <div class="idx">03 — 静态 Web · 零构建</div>
+        <h3 class="rv-line">墨卦</h3>
+        <p class="one rv">起点是一个开源八字 skill，功能完整，但
+          <b>只有装了命令行的人能用</b>。我把同样的算法换成打开浏览器就能用的形态。</p>
+        <div class="pts">
+          <div class="pt rv"><i>01</i><span><b>零构建零依赖</b>：没有构建产物就没有构建失败，十年后还能打开</span></div>
+          <div class="pt rv"><i>02</i><span><b>BYOK</b>：AI 深读用用户自带密钥，只存本机；不填也能用规则引擎</span></div>
+          <div class="pt rv"><i>03</i><span><b>口径严格对齐原 skill</b>：同一个人两处算出不同结果，产品就废了</span></div>
+        </div>
+        <a class="more" href="#w3">完整拆解 →</a>
+      </div>
+      <figure class="visual tinted rv-img">
+        <img src="assets/img/mogua-chart.jpg" alt="墨卦命盘" loading="lazy">
+        <figcaption>四柱排盘 + 五行雷达。示例为虚构生日，非真实个人信息。</figcaption>
+      </figure>
+    </div></div>
+  </section>
+
+</div>
+
 <!-- ══════ 01 ══════ -->
 <section class="detail" id="w1">
   <div class="wrap">

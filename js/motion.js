@@ -219,4 +219,19 @@
     addEventListener('load', upd);
     upd(); requestAnimationFrame(upd);   // 布局稳定后再算一次
   }
+
+  /* ── 8. 堆叠幻灯片：出场的那张缩小+压暗，做出"叠在下面"的层次 ── */
+  const slides = gsap.utils.toArray('.slide');
+  slides.forEach((sl, i) => {
+    if (i === slides.length - 1) return;      // 最后一张不需要被压
+    // 必须 fromTo 并显式写出起始 filter：
+    // 从 filter:none 补间时 GSAP 会把基线当 0，中途出现 brightness(0.08) 这种近乎全黑的值
+    gsap.fromTo(sl, { scale: 1, filter: 'brightness(1)' }, {
+      scale: 0.93, filter: 'brightness(0.55)', ease: 'none',
+      scrollTrigger: {
+        trigger: slides[i + 1],
+        start: 'top bottom', end: 'top top', scrub: 0.6,
+      },
+    });
+  });
 })();
