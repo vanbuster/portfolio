@@ -277,11 +277,6 @@ body.has3d .detail:first-of-type{border-top:1px solid var(--hair)}
   border-top:1px solid var(--hair);
   will-change:transform,filter}
 .slide .wrap{width:100%}
-.slide-in{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
-  gap:clamp(28px,5vw,72px);align-items:center}
-@media(max-width:900px){.slide-in{grid-template-columns:1fr;gap:30px}
-  .slide{min-height:auto;padding:72px 0}}
-
 .slide .idx{font-size:12px;letter-spacing:3px;color:var(--periwinkle)}
 .slide h3{font-size:clamp(30px,4.6vw,54px);font-weight:700;letter-spacing:-1px;
   line-height:1.1;color:var(--t-hi);margin:14px 0 12px}
@@ -296,18 +291,34 @@ body.has3d .detail:first-of-type{border-top:1px solid var(--hair)}
   border-bottom:1px solid var(--line);padding-bottom:2px;transition:color .3s,border-color .3s}
 .slide .more:hover{color:var(--periwinkle);border-color:var(--periwinkle)}
 
-.slide .visual{position:relative;border:1px solid var(--hair);border-radius:4px;
-  overflow:hidden;background:var(--surface);
-  box-shadow:0 30px 90px rgba(4,12,18,.55)}
-.slide .visual img{width:100%;display:block}
-.slide .visual figcaption{padding:11px 15px;font-size:12px;color:var(--t-low);
-  border-top:1px solid var(--hair);line-height:1.6}
-/* 浅色截图沉进水色，与全站一致 */
-.slide .visual.tinted::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(172deg,rgba(66,105,125,.16),rgba(16,36,46,.52));
-  mix-blend-mode:multiply}
 
 /* 视觉区高度必须锁死：聊天截图原图很高，不锁会把整张幻灯撑出一屏，
    标题被挤到视口外，堆叠效果就废了 */
 .slide .visual img{max-height:58svh;object-fit:cover;object-position:top center}
 @media(max-width:900px){.slide .visual img{max-height:44svh}}
+
+/* ───────── 幻灯片：介绍文字在上，两张图在下 ─────────
+   两张图必须在同一屏内看完，所以头部和图区的高度都要收着。 */
+.slide-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(24px,4vw,56px);align-items:start;margin-bottom:clamp(20px,3vh,34px)}
+@media(max-width:980px){.slide-head{grid-template-columns:1fr;gap:18px}}
+.slide-head h3{font-size:clamp(28px,4vw,48px);margin:10px 0 10px}
+.slide-head .one{font-size:clamp(15px,1.35vw,17.5px);color:var(--t);line-height:1.7;max-width:520px}
+.slide-head .pts{margin-top:6px;display:grid;gap:10px;max-width:520px}
+.slide-head .more{margin-top:14px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,22px)}
+@media(max-width:980px){.duo{grid-template-columns:1fr}}
+.duo-fig{position:relative;border:1px solid var(--hair);border-radius:4px;overflow:hidden;
+  background:var(--surface);box-shadow:0 26px 70px rgba(4,12,18,.5);
+  display:flex;flex-direction:column}
+.duo-fig img{width:100%;display:block;object-fit:cover;object-position:top center;
+  max-height:42svh}
+.duo-fig figcaption{padding:10px 13px;font-size:11.8px;color:var(--t-low);line-height:1.6;
+  border-top:1px solid var(--hair);background:rgba(10,28,36,.5)}
+.duo-fig figcaption b{color:var(--t-mid)}
+.duo-fig.tinted::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(172deg,rgba(66,105,125,.14),rgba(16,36,46,.42));
+  mix-blend-mode:multiply}
+@media(max-width:980px){.duo-fig img{max-height:32svh}
+  .slide{min-height:auto;padding:64px 0}}
