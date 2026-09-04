@@ -147,6 +147,20 @@ function init() {
     });
     pts.rotation.y = t * .006;
 
+    // 把「当前最近的画板」交给 HUD —— 之前用滚动比例反推分段是猜的，
+    // 画板数一变就对不上。这里直接取真实的镜头-画板距离。
+    let best = 0, bd = 1e9;
+    for (const b of boards) {
+      const d = Math.abs(b.group.position.z - camZ);
+      if (d < bd) { bd = d; best = b.i; }
+    }
+    if (document.body.dataset.board !== String(best)) {
+      document.body.dataset.board = String(best);
+      // 必须主动通知：HUD 只在 scroll 事件里重算，而这个值是渲染循环里
+      // 异步变的（镜头有阻尼，滚动停下后才收敛）→ 不发事件 HUD 永远慢一拍
+      dispatchEvent(new CustomEvent('board:change', { detail: best }));
+    }
+
     renderer.render(scene, camera);
   });
 

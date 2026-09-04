@@ -229,7 +229,7 @@ footer{padding:80px 0 64px;border-top:1px solid var(--hair);background:var(--aby
 [data-depth]{will-change:transform}
 
 /* ───────── 3D 镜头推进舞台 ───────── */
-.stage3d{position:relative;height:400vh}      /* 滚动行程 = 镜头行程 */
+.stage3d{position:relative;height:620vh}   /* 6 块画板，行程要够长 */      /* 滚动行程 = 镜头行程 */
 #scene3d{position:sticky;top:0;left:0;width:100vw;height:100svh;display:block}
 .w3-data{display:none}
 

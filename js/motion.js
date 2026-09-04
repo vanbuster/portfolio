@@ -204,18 +204,23 @@
   const hud = [...document.querySelectorAll('.hud-item')];
   if (stage3d && hud.length) {
     const n = hud.length;
+    const boards = document.querySelectorAll('.w3-data').length || n;
+    const perWork = Math.max(1, Math.round(boards / n));
     const upd = () => {
       const r = stage3d.getBoundingClientRect();
       const total = stage3d.offsetHeight - innerHeight;
       const p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
-      // 把 [0,1] 切成 n 段，每段亮一条
-      // 进度切成 n+1 段：最后一段留白，让镜头收尾时文字先退场
-      const seg = 1 / (n + 0.35);
-      const idx = Math.floor(p / seg);
-      hud.forEach((el, i) => el.classList.toggle('on', i === idx));
+      // 优先用 3D 场景报告的真实最近画板；没有 3D 时退回按比例分段
+      const raw = document.body.dataset.board;
+      const idx = raw !== undefined
+        ? Math.min(n - 1, Math.floor(Number(raw) / perWork))
+        : Math.min(n - 1, Math.floor(p / (1 / (n + 0.15))));
+      const inStage = p < 0.97;
+      hud.forEach((el, i) => el.classList.toggle('on', inStage && i === idx));
       document.body.classList.toggle('scrolled', p > 0.02);
     };
     addEventListener('scroll', upd, { passive: true });
+    addEventListener('board:change', upd);
     addEventListener('load', upd);
     upd(); requestAnimationFrame(upd);   // 布局稳定后再算一次
   }
