@@ -438,15 +438,17 @@ body.fc-on .hud-item.on{opacity:0;transform:translateY(-14px);pointer-events:non
 .tl2::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;
   background:linear-gradient(to bottom,transparent,var(--line) 6%,var(--line) 94%,transparent);
   transform:translateX(-.5px)}
-.tl2-row{display:grid;grid-template-columns:1fr 56px 1fr;align-items:start;
-  gap:0;padding:46px 0;position:relative}
-.tl2-row .tl2-main{grid-column:1;padding-right:clamp(20px,3vw,44px)}
-.tl2-row .tl2-aside{grid-column:3;padding-left:clamp(20px,3vw,44px)}
-.tl2-row[data-side="R"] .tl2-main{grid-column:3;padding-right:0;padding-left:clamp(20px,3vw,44px)}
-.tl2-row[data-side="R"] .tl2-aside{grid-column:1;padding-left:0;padding-right:clamp(20px,3vw,44px);text-align:right}
+/* 正文在一侧、画与段子在「对侧的下一行」——不是同级并排。
+   同级并排时两栏高度天然不等，视觉上永远像没对齐；错行反而关系清楚，留白也大。 */
+.tl2-row{display:grid;grid-template-columns:1fr 56px 1fr;grid-template-rows:auto auto;
+  align-items:start;gap:0;padding:64px 0 96px;position:relative}
+.tl2-row .tl2-main{grid-column:1;grid-row:1;padding-right:clamp(20px,3vw,44px)}
+.tl2-row .tl2-aside{grid-column:3;grid-row:2;padding-left:clamp(20px,3vw,44px);margin-top:clamp(28px,5vh,64px)}
+.tl2-row[data-side="R"] .tl2-main{grid-column:3;grid-row:1;padding-right:0;padding-left:clamp(20px,3vw,44px)}
+.tl2-row[data-side="R"] .tl2-aside{grid-column:1;grid-row:2;padding-left:0;padding-right:clamp(20px,3vw,44px);text-align:right}
 .tl2-row[data-side="R"] .tl2-aside figcaption{text-align:right}
 /* 节点 */
-.tl2-dot{grid-column:2;justify-self:center;margin-top:8px;width:11px;height:11px;border-radius:50%;
+.tl2-dot{grid-column:2;grid-row:1;justify-self:center;margin-top:8px;width:11px;height:11px;border-radius:50%;
   background:var(--deep);border:1.5px solid var(--periwinkle);box-shadow:0 0 0 5px rgba(10,28,36,.9)}
 
 .tl2-main h3{font-size:clamp(24px,3.2vw,34px);margin:6px 0 8px}
@@ -470,9 +472,9 @@ body.fc-on .hud-item.on{opacity:0;transform:translateY(-14px);pointer-events:non
 /* 窄屏：竖线靠左，全部单列 */
 @media(max-width:860px){
   .tl2::before{left:10px}
-  .tl2-row,.tl2-row[data-side="R"]{grid-template-columns:26px 1fr;padding:34px 0}
-  .tl2-row .tl2-main,.tl2-row[data-side="R"] .tl2-main{grid-column:2;padding:0 0 0 14px}
-  .tl2-row .tl2-aside,.tl2-row[data-side="R"] .tl2-aside{grid-column:2;padding:20px 0 0 14px;text-align:left}
+  .tl2-row,.tl2-row[data-side="R"]{grid-template-columns:26px 1fr;grid-template-rows:auto auto;padding:34px 0 48px}
+  .tl2-row .tl2-main,.tl2-row[data-side="R"] .tl2-main{grid-column:2;grid-row:1;padding:0 0 0 14px}
+  .tl2-row .tl2-aside,.tl2-row[data-side="R"] .tl2-aside{grid-column:2;grid-row:2;padding:20px 0 0 14px;margin-top:0;text-align:left}
   .tl2-row[data-side="R"] .tl2-aside figcaption{text-align:left}
   .tl2-row[data-side="R"] .tl2-aside img{margin-left:0}
   .tl2-dot{grid-column:1;justify-self:start;margin-left:5px}

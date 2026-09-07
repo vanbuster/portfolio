@@ -328,12 +328,14 @@
     window.gsap.fromTo(inner,
       { scale: 1, opacity: 1, filter: 'blur(0px)', y: 0 },
       {
-        scale: .86, opacity: .18, filter: 'blur(5px)', y: -34, ease: 'none',
+        // 幅度必须够大且前置：原来 scale .86 / blur 5px 且映射到「刚露头→完全覆盖」，
+        // 等效果明显时上一张已经基本看不见了，用户只感觉到阴影在叠、内容没退场。
+        scale: .74, opacity: .06, filter: 'blur(9px)', y: -56, ease: 'power1.in',
         scrollTrigger: {
           trigger: next,
-          start: 'top bottom',   // 下一张刚露头
-          end: 'top top',        // 下一张完全覆盖
-          scrub: .55,            // 小数而非 true：留一点惯性拖尾，不死绑滚动条
+          start: 'top 92%',      // 下一张刚冒头就开始退场
+          end: 'top 22%',        // 盖到四分之三时已经退干净
+          scrub: .5,
         },
       });
   });
