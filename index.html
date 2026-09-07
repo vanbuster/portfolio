@@ -7,7 +7,7 @@
 <meta name="description" content="三个自建自用的 AI 产品：PRD Copilot（质量门禁管线）、数字分身（本地人格引擎）、墨卦（八字排盘网页）。">
 <meta property="og:title" content="卢万凌 · 作品集">
 <meta property="og:description" content="三个自建自用的 AI 产品。">
-<link rel="stylesheet" href="css/main.css?v=20260907i">
+<link rel="stylesheet" href="css/main.css?v=20260907j">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 </head>
 <body>
@@ -367,7 +367,7 @@
 <!-- ══════ 04 · 实习 ══════ -->
 <section class="detail exp" id="e04">
   <div class="wrap">
-    <div class="d-no">04</div>
+    <div class="exp-hd"><img class="exp-logo" src="assets/logo/bytedance-icon.svg" alt="字节跳动"><div class="d-no">04</div></div>
     <h3 class="rv-line">字节跳动</h3>
     <div class="exp-meta rv">豆包大模型 · Ocean 产品团队　·　2026.06 — 至今</div>
     <div class="lead rv">隐私数据拿不到，我把评测集从采集改成生成：多 Agent 造内容，双模型 8 维交叉裁决，一次通过率 90.4%，再拿裁决记录反过来改 Prompt，4 轮稳到 97%+。</div>
@@ -382,7 +382,7 @@
 <!-- ══════ 05 · 实习 ══════ -->
 <section class="detail exp" id="e05">
   <div class="wrap">
-    <div class="d-no">05</div>
+    <div class="exp-hd"><img class="exp-logo" src="assets/logo/lixiang-icon.svg" alt="理想汽车"><div class="d-no">05</div></div>
     <h3 class="rv-line">理想汽车</h3>
     <div class="exp-meta rv">智能座舱事业部 · 智能空间产品团队　·　2025.12 — 2026.05</div>
     <div class="lead rv">在理想汽车把车载 Agent 从车控扩到生活服务，用黄金 schedule diff 把「规划错」和「执行错」分开，工具调用准确率 78.3%→95.4%。</div>
@@ -397,7 +397,7 @@
 <!-- ══════ 06 · 实习 ══════ -->
 <section class="detail exp" id="e06">
   <div class="wrap">
-    <div class="d-no">06</div>
+    <div class="exp-hd"><img class="exp-logo" src="assets/logo/qianfang-icon.png" alt="千方科技"><div class="d-no">06</div></div>
     <h3 class="rv-line">千方科技</h3>
     <div class="exp-meta rv">智慧交通事业部 · Omni-T 智慧高速预警　·　2025.06 — 2025.11</div>
     <div class="lead rv">驻场三天、访谈八人、翻完 1200 条日志后定下 6 大类 18 子类标注规范，横评五条技术路线选定 YOLO 加大模型级联压误报，再用三按钮回流和三条漏报发现路径把指标本身管住：告警有效采纳率 60% 到 78%，首报时延 10–15 分钟压到 60 秒，试点约 300 公里、60 路摄像头。</div>
@@ -405,6 +405,66 @@
       <p class="rv">技术路线横评了五条，从纯 YOLO、纯 VLM 端到端，到海康一体化、TVM-R1，再到 YOLO 加大模型级联。选级联的理由不复杂：这个场景里卡住落地的不是漏检，是误报，而召回这一端 YOLO 已经保底了。所以边端跑 YOLO 管召回，云端大模型只干复核这一件事，把误报压下去。横评这一步的价值不在于最后选了哪条，在于让「为什么不选另外四条」有据可查。</p>
       <p class="rv">指标上我改过一次口径。一开始定的是「告警有效采纳率」，后来发现这个数系统自己就能刷高——少报就行，报得越少，报对的比例越好看。于是补了两件事：给调度员做三个按钮，把反馈按语义分进三个独立 Case 池；另外开三条独立发现漏报的路径——重大事故倒查录像、相邻摄像头交叉比对、拿交警工单求差集。漏报这一侧有了自己的数，采纳率才算数。</p>
       <p class="rv">试点铺了约 300 公里、60 路摄像头。告警有效采纳率从 60% 到 78%，首报时延从 10–15 分钟压到 60 秒。留下来的习惯是，定完一个指标先花五分钟想想它能被怎么刷；想不出来，通常说明我还没想透。</p>
+  </div>
+</section>
+
+
+<!-- ══════ 下班以后 ══════ -->
+<section class="detail offhours" id="offhours">
+  <div class="wrap">
+    <div class="d-no">07</div>
+    <h3 class="rv-line">下班以后</h3>
+    <div class="lead rv">简历上写不进去、但确实是我的那部分。</div>
+
+    <div class="sk-grid">
+      <div class="sk-card rv">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M46 96c-13 5-25-3-25-16 0-11 9-19 19-16 3-8 9-14 17-19l26-17"/>
+          <path d="M83 28l14-11 6 8-13 12"/>
+          <circle cx="41" cy="80" r="7.5"/>
+          <path d="M62 44l14 18M56 51l14 18"/>
+        </g></svg>
+        <h4>吉他 · 7 年，乐队主音</h4>
+        <p>上台不怯场这件事，辩论队和乐队各占一半功劳。区别是辩论输了还能复盘，走音了只能假装那是即兴。</p>
+      </div>
+
+      <div class="sk-card rv">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="60" cy="60" r="34"/>
+          <path d="M60 38l16 11-6 19H50l-6-19z"/>
+          <path d="M60 26v12M44 49L33 42M76 49l11-7M50 68l-8 16M70 68l8 16"/>
+        </g></svg>
+        <h4>足球 · 院队后卫主力</h4>
+        <p>踢后卫。防守型人格——做产品也是先想这功能会怎么出事，再想它能有多好。千方那条「指标能不能被用错误的方式做上去」，本质是同一个毛病。</p>
+      </div>
+
+      <div class="sk-card rv">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M42 60h36"/>
+          <rect x="28" y="46" width="14" height="28" rx="3"/>
+          <rect x="78" y="46" width="14" height="28" rx="3"/>
+          <path d="M20 53v14M100 53v14"/>
+        </g></svg>
+        <h4>健身 · 两年增重 10kg，体脂 10%</h4>
+        <p>唯一一件我严格按指标迭代、而且一次 bad case 都没出过的事。可惜没法写进项目经历。</p>
+      </div>
+
+      <div class="sk-card rv">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="60" cy="36" rx="26" ry="9"/>
+          <path d="M34 36v20c0 5 12 9 26 9s26-4 26-9V36"/>
+          <path d="M34 56v20c0 5 12 9 26 9s26-4 26-9V56"/>
+          <path d="M52 96c4-6 12-6 16 0M60 100v6"/>
+        </g></svg>
+        <h4>Token · 月自用过千元</h4>
+        <p>家里最贵的订阅不是视频网站。用得多的好处很实际：模型哪里不行，是我被它坑出来的，不是读文档读出来的。</p>
+      </div>
+    </div>
+
+    <div class="quote rv" style="margin-top:26px">
+      还有一条没画：<b>Obsidian 知识库当外置大脑</b>。别人记笔记是为了以后看，我记是为了让 Agent 以后能查——
+      这个习惯后来直接变成了我做评测集的方式。
+    </div>
   </div>
 </section>
 
@@ -464,13 +524,13 @@
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js"}}
 </script>
-<script type="module" src="js/scene3d.js?v=20260907i"></script>
+<script type="module" src="js/scene3d.js?v=20260907j"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
-<script src="js/monet-gl.js?v=20260907i"></script>
-<script src="js/main.js?v=20260907i"></script>
-<script src="js/motion.js?v=20260907i"></script>
+<script src="js/monet-gl.js?v=20260907j"></script>
+<script src="js/main.js?v=20260907j"></script>
+<script src="js/motion.js?v=20260907j"></script>
 </body>
 </html>

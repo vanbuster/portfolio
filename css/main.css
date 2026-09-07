@@ -348,10 +348,12 @@ body.has3d .detail:first-of-type{border-top:1px solid var(--hair)}
   position:fixed; z-index:6; top:50%; width:min(330px,31vw);
   padding:20px 22px 18px;
   /* 底衬必须够厚：卡片会压在任意一张浅色截图前面 */
-  background:linear-gradient(155deg, rgba(29,49,59,.93), rgba(10,28,36,.95));
-  /* 不用 backdrop-filter：它模糊的是逐帧变化的全屏 WebGL 画面，
-     浏览器的分离层缓存永久失效，集显上是实打实的掉帧来源；
-     而这张卡的底衬已经是 .93→.95 近不透明，模糊视觉上换不来任何东西。 */
+  background:linear-gradient(155deg, rgba(29,49,59,.72), rgba(10,28,36,.80));
+  /* 磨砂虚化。之前按「模糊逐帧变化的 WebGL 会毁掉层缓存」的理由删过一次，
+     但实测数据不支持：带着它测的是 8.3ms/帧、0 长帧。恢复，并把半径从 14 收到 10，
+     saturate 略降一点让底下的画板色不要透上来抢字。 */
+  backdrop-filter:blur(10px) saturate(.86);
+  -webkit-backdrop-filter:blur(10px) saturate(.86);
   border-radius:3px;
   /* 顶缘一道漫射日光的高光，代替边框 */
   box-shadow:inset 0 1px 0 rgba(229,227,215,.16),
@@ -404,3 +406,24 @@ body.fc-on .hud-item.on{opacity:0;transform:translateY(-14px);pointer-events:non
 .deck .slide:first-child::before{display:none}
 /* 缩放作用在内容层，不作用在 .slide 本身——否则背景与圆角会一起被压变形 */
 .slide .wrap{transform-origin:50% 22%;will-change:transform,opacity,filter}
+
+/* ── 实习章节的公司标识：与简历用同一套 icon，视觉上串起来 ── */
+.exp-hd{display:flex;align-items:center;gap:12px;margin-bottom:2px}
+.exp-logo{height:26px;width:auto;max-width:96px;object-fit:contain;
+  /* 彩色 logo 直接贴上去会在低彩度的页面里跳出来；压饱和 + 提亮，跟环境同调 */
+  filter:saturate(.35) brightness(1.55) opacity(.82)}
+.exp-hd .d-no{margin:0}
+@media(max-width:700px){.exp-logo{height:22px}}
+
+/* ── 下班以后：手绘简笔画 + 个人质感 ──────────────────────────────
+   四栏自适应；简笔画用 currentColor，随主题走，不额外引资源。 */
+.offhours .sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:22px;margin-top:28px;max-width:var(--max)}
+.sk-card{padding:22px 20px 20px;border:1px solid var(--hair);border-radius:4px;
+  background:linear-gradient(160deg,rgba(29,49,59,.34),rgba(16,36,46,.20));
+  transition:border-color .5s var(--ease),transform .5s var(--ease)}
+.sk-card:hover{border-color:var(--line);transform:translateY(-3px)}
+.sk-card svg{width:60px;height:60px;color:var(--periwinkle);opacity:.72;margin-bottom:14px;display:block}
+.sk-card h4{font-size:14.5px;font-weight:700;color:var(--t-hi);letter-spacing:.2px;margin-bottom:8px}
+.sk-card p{font-size:13.4px;line-height:1.72;color:var(--t-mid);margin:0;max-width:none}
+@media(max-width:640px){.offhours .sk-grid{grid-template-columns:1fr}}
