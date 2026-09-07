@@ -330,7 +330,7 @@
       {
         // 幅度必须够大且前置：原来 scale .86 / blur 5px 且映射到「刚露头→完全覆盖」，
         // 等效果明显时上一张已经基本看不见了，用户只感觉到阴影在叠、内容没退场。
-        scale: .74, opacity: .06, filter: 'blur(9px)', y: -56, ease: 'power1.in',
+        scale: .74, opacity: .06, filter: 'blur(9px)', y: -56, ease: 'power2.out',   // 必须前重：power1.in 前段几乎不动，等于又把效果推到盖满时才出现
         scrollTrigger: {
           trigger: next,
           start: 'top 92%',      // 下一张刚冒头就开始退场
