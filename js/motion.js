@@ -276,6 +276,11 @@
     elTitle.textContent = d.title;
     elNote.textContent = d.note;
     elLink.setAttribute('href', d.href);
+    // 现在指向的是真实作品站/仓库，不再是站内锚点 —— 必须开新标签页，
+    // 否则用户点一下就离开作品集，回来还得从头滚 3D 走廊。
+    const external = /^https?:/i.test(d.href);
+    if (external) { elLink.target = '_blank'; elLink.rel = 'noopener'; elLink.textContent = '打开作品 ↗'; }
+    else { elLink.removeAttribute('target'); elLink.textContent = '看细节 →'; }
     // 画板 x 在 scene3d 里是 (i%2===0 ? -1 : 1)*3.4：偶数在左，奇数在右。
     // 卡片去对侧，data-side 记的是「画板在哪边」。
     document.body.dataset.side = (i % 2 === 0) ? 'L' : 'R';

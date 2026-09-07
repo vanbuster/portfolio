@@ -26,7 +26,7 @@ function init() {
   } catch (e) { document.body.classList.add('no3d'); return; }
   if (!renderer.getContext()) { document.body.classList.add('no3d'); return; }
 
-  const DPR = Math.min(devicePixelRatio || 1, innerWidth < 780 ? 1.4 : 1.9);
+  const DPR = Math.min(devicePixelRatio || 1, innerWidth < 780 ? 1.3 : 1.6);
   renderer.setPixelRatio(DPR);
   renderer.setSize(innerWidth, innerHeight);
 
@@ -47,6 +47,7 @@ function init() {
 
   /* ── 作品画板：沿 Z 轴排开，左右交错 ── */
   const SPACING = 17;
+  const PLANE_W = 6.0, PLANE_H = 4.5;      // 画板框；纹理按真实比例装进这个框
   const loader = new THREE.TextureLoader();
   const boards = [];
 
@@ -56,23 +57,37 @@ function init() {
     const x = (i % 2 === 0 ? -1 : 1) * 3.4;
     group.position.set(x, (i % 2 === 0 ? .5 : -.4), z);
 
-    const geo = new THREE.PlaneGeometry(6.0, 4.5, 24, 18);
+    const geo = new THREE.PlaneGeometry(PLANE_W, PLANE_H, 24, 18);
     const mat = new THREE.MeshBasicMaterial({ color: 0x24404d });
     const mesh = new THREE.Mesh(geo, mat);
     group.add(mesh);
 
+    // 画框：细边，用蓝紫描一圈。必须在 loader 回调之前建好——回调里要按纹理比例缩它。
+    const edge = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.PlaneGeometry(PLANE_W + .14, PLANE_H + .14)),
+      new THREE.LineBasicMaterial({ color: 0x8491c7, transparent: true, opacity: .5 }));
+    group.add(edge);
+
     loader.load(w.img, (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
       mat.map = tex;
       mat.color.set(0x7c93a4);              // 压一档，让它沉进水色而不是贴上去
       mat.needsUpdate = true;
-    });
 
-    // 画框：细边，用蓝紫描一圈
-    const edge = new THREE.LineSegments(
-      new THREE.EdgesGeometry(new THREE.PlaneGeometry(6.14, 4.64)),
-      new THREE.LineBasicMaterial({ color: 0x8491c7, transparent: true, opacity: .5 }));
-    group.add(edge);
+      /* 按纹理真实比例校正。画板是固定 6.0×4.5（4:3），而截图什么比例都有，
+         直接贴上去必然被拉伸——正是「内容扭曲」的来源。
+         这里把网格缩到与图同比例并整体装进画板框内，短边留空而不是拉长。 */
+      const iw = tex.image && tex.image.width, ih = tex.image && tex.image.height;
+      if (iw && ih) {
+        const A = iw / ih, PA = PLANE_W / PLANE_H;
+        const sx = A >= PA ? 1 : (PLANE_H * A) / PLANE_W;
+        const sy = A >= PA ? (PLANE_W / A) / PLANE_H : 1;
+        mesh.scale.set(sx, sy, 1);
+        edge.scale.set(sx, sy, 1);
+      }
+    });
 
     scene.add(group);
     boards.push({ group, mesh, edge, baseX: x, i });
