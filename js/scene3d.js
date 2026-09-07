@@ -93,6 +93,11 @@ function init() {
 
   /* ── 滚动 → 镜头 Z ── */
   const TRAVEL = (WORKS.length - 1) * SPACING + 20;
+
+  /* 滚动行程必须跟着画板数走。CSS 里那个 height 是按 6 块写死的，
+     加到 18 块后镜头会在 30% 处就冲到最后一块、HUD 直接熄灭。
+     这里按每块 ~72vh 推导，以后再加图也不会脱节。 */
+  stage.style.height = Math.round(WORKS.length * 72 + 90) + 'vh';
   let camZ = 10, targetZ = 10, mx = 0, my = 0, tmx = 0, tmy = 0;
 
   function progress() {
