@@ -7,7 +7,7 @@
 <meta name="description" content="三个自建自用的 AI 产品：PRD Copilot（质量门禁管线）、数字分身（本地人格引擎）、墨卦（八字排盘网页）。">
 <meta property="og:title" content="卢万凌 · 作品集">
 <meta property="og:description" content="三个自建自用的 AI 产品。">
-<link rel="stylesheet" href="css/main.css?v=20260907k">
+<link rel="stylesheet" href="css/main.css?v=20260907m">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 </head>
 <body>
@@ -365,8 +365,16 @@
 
 
 <!-- ══════ 04 · 实习 ══════ -->
-<section class="detail exp" id="e04">
-  <div class="wrap">
+<!-- ══════ 实习时间轴 ══════ -->
+<section class="worktl">
+  <div class="wrap tl2-hd">
+    <div class="d-no">04 — 06</div>
+    <h3 class="rv-line">三段实习</h3>
+    <div class="lead rv">左右两栏：一边是当时真在解决的问题，另一边是当时真实的心情。</div>
+  </div>
+  <div class="tl2">
+  <div class="tl2-row" id="e04" data-side="L">
+    <div class="tl2-main">
     <div class="exp-hd"><img class="exp-logo" src="assets/logo/bytedance-icon.svg" alt="字节跳动"><div class="d-no">04</div></div>
     <h3 class="rv-line">字节跳动</h3>
     <div class="exp-meta rv">豆包大模型 · Ocean 产品团队　·　2026.06 — 至今</div>
@@ -377,11 +385,18 @@
       <p class="rv">之后做 Function Calling 评测集，4 个专项、1600 题、3300+ case，skill 预测工具的准确率从 66.74% 到 78.42%。call_user 这类需要人接管的场景原先只能靠人盯屏，我用 ADB 做了 Agent 自主监测，GUI 点击和文本输入自动执行，盯屏人力降到零，封装成 skill 交给团队。</p>
       <p class="rv">学到的是：数据拿不到的时候，先别忙着找数据，先确认这个问题是不是只能靠数据解。</p>
   </div>
-</section>
-
-<!-- ══════ 05 · 实习 ══════ -->
-<section class="detail exp" id="e05">
-  <div class="wrap">
+    <div class="tl2-dot" aria-hidden="true"></div>
+    <aside class="tl2-aside rv">
+      <figure>
+        <img src="assets/art/art-sleep.jpg" alt="Antonio da Correggio《Head of a Sleeping Man》" loading="lazy">
+        <figcaption>Antonio da Correggio《Head of a Sleeping Man》　·　公有领域</figcaption>
+      </figure>
+      <h5>自迭代跑到第 4 轮</h5>
+      <p>架构的 pass 率稳定在 97%。我的 pass 率第二轮就掉到 0 了。<br><br>Correggio 四百年前画这颗头的时候，大概没料到它最贴切的用途是配一句「又跑挂了，明天再说」。</p>
+    </aside>
+  </div>
+  <div class="tl2-row" id="e05" data-side="R">
+    <div class="tl2-main">
     <div class="exp-hd"><img class="exp-logo" src="assets/logo/lixiang-icon.svg" alt="理想汽车"><div class="d-no">05</div></div>
     <h3 class="rv-line">理想汽车</h3>
     <div class="exp-meta rv">智能座舱事业部 · 智能空间产品团队　·　2025.12 — 2026.05</div>
@@ -392,11 +407,18 @@
       <p class="rv">半年下来，工具调用准确率从 78.3% 到 95.4%，多步任务完成率从 62% 到 85%，端到端时延从 4s 压到 2.5s，简单车控进 500ms 以内。</p>
       <p class="rv">我从这段拿走的东西是：先把「错在哪」定义清楚，比修好其中任何一个 bug 都值钱。</p>
   </div>
-</section>
-
-<!-- ══════ 06 · 实习 ══════ -->
-<section class="detail exp" id="e06">
-  <div class="wrap">
+    <div class="tl2-dot" aria-hidden="true"></div>
+    <aside class="tl2-aside rv">
+      <figure>
+        <img src="assets/art/art-carriage.jpg" alt="Thomas Rowlandson《Carriage Horses and Hostlers》" loading="lazy">
+        <figcaption>Thomas Rowlandson《Carriage Horses and Hostlers》　·　公有领域</figcaption>
+      </figure>
+      <h5>车载 Agent 的前身</h5>
+      <p>一百多年前，坐在车里的人也是被拉着走的。区别是这辆会说话——而且说错了要我去归因：到底是马想错了路，还是缰绳断了。<br><br>后来我给这件事起了个正经名字，叫「黄金 schedule diff」。</p>
+    </aside>
+  </div>
+  <div class="tl2-row" id="e06" data-side="L">
+    <div class="tl2-main">
     <div class="exp-hd"><img class="exp-logo" src="assets/logo/qianfang-icon.png" alt="千方科技"><div class="d-no">06</div></div>
     <h3 class="rv-line">千方科技</h3>
     <div class="exp-meta rv">智慧交通事业部 · Omni-T 智慧高速预警　·　2025.06 — 2025.11</div>
@@ -406,7 +428,25 @@
       <p class="rv">指标上我改过一次口径。一开始定的是「告警有效采纳率」，后来发现这个数系统自己就能刷高——少报就行，报得越少，报对的比例越好看。于是补了两件事：给调度员做三个按钮，把反馈按语义分进三个独立 Case 池；另外开三条独立发现漏报的路径——重大事故倒查录像、相邻摄像头交叉比对、拿交警工单求差集。漏报这一侧有了自己的数，采纳率才算数。</p>
       <p class="rv">试点铺了约 300 公里、60 路摄像头。告警有效采纳率从 60% 到 78%，首报时延从 10–15 分钟压到 60 秒。留下来的习惯是，定完一个指标先花五分钟想想它能被怎么刷；想不出来，通常说明我还没想透。</p>
   </div>
+    <div class="tl2-dot" aria-hidden="true"></div>
+    <aside class="tl2-aside rv">
+      <figure>
+        <img src="assets/art/art-window.jpg" alt="Edvard Munch《The Girl by the Window》1893" loading="lazy">
+        <figcaption>Edvard Munch《The Girl by the Window》1893　·　公有领域</figcaption>
+      </figure>
+      <h5>驻场第三天</h5>
+      <p>在监控中心的窗前坐够三天，你会开始理解调度员为什么宁愿少报：报错了要挨骂，漏报了没人知道。<br><br>这不是态度问题，是指标设计问题——所以我后来非补那三条独立的漏报发现路径不可。</p>
+    </aside>
+  </div>
+  </div>
 </section>
+
+
+<!-- ══════ 05 · 实习 ══════ -->
+
+
+<!-- ══════ 06 · 实习 ══════ -->
+
 
 
 <!-- ══════ 下班以后 ══════ -->
@@ -525,13 +565,13 @@
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js"}}
 </script>
-<script type="module" src="js/scene3d.js?v=20260907k"></script>
+<script type="module" src="js/scene3d.js?v=20260907m"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
-<script src="js/monet-gl.js?v=20260907k"></script>
-<script src="js/main.js?v=20260907k"></script>
-<script src="js/motion.js?v=20260907k"></script>
+<script src="js/monet-gl.js?v=20260907m"></script>
+<script src="js/main.js?v=20260907m"></script>
+<script src="js/motion.js?v=20260907m"></script>
 </body>
 </html>

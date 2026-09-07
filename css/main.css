@@ -427,3 +427,53 @@ body.fc-on .hud-item.on{opacity:0;transform:translateY(-14px);pointer-events:non
 .sk-card h4{font-size:14.5px;font-weight:700;color:var(--t-hi);letter-spacing:.2px;margin-bottom:8px}
 .sk-card p{font-size:13.4px;line-height:1.72;color:var(--t-mid);margin:0;max-width:none}
 @media(max-width:640px){.offhours .sk-grid{grid-template-columns:1fr}}
+
+/* ── 实习时间轴：中间竖线，左右交替 ────────────────────────────────
+   一边是当时在解决的问题，另一边是当时的心情（公有领域油画 + 吐槽）。
+   桌面三列 grid：主栏 | 竖线 | 侧栏；data-side 决定谁在左。 */
+.worktl{padding:110px 0 96px;border-top:1px solid var(--hair)}
+.tl2-hd{margin-bottom:8px}
+.tl2{position:relative;max-width:var(--max);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+/* 竖线：画在容器上而不是每行上，行与行之间才连得起来 */
+.tl2::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,transparent,var(--line) 6%,var(--line) 94%,transparent);
+  transform:translateX(-.5px)}
+.tl2-row{display:grid;grid-template-columns:1fr 56px 1fr;align-items:start;
+  gap:0;padding:46px 0;position:relative}
+.tl2-row .tl2-main{grid-column:1;padding-right:clamp(20px,3vw,44px)}
+.tl2-row .tl2-aside{grid-column:3;padding-left:clamp(20px,3vw,44px)}
+.tl2-row[data-side="R"] .tl2-main{grid-column:3;padding-right:0;padding-left:clamp(20px,3vw,44px)}
+.tl2-row[data-side="R"] .tl2-aside{grid-column:1;padding-left:0;padding-right:clamp(20px,3vw,44px);text-align:right}
+.tl2-row[data-side="R"] .tl2-aside figcaption{text-align:right}
+/* 节点 */
+.tl2-dot{grid-column:2;justify-self:center;margin-top:8px;width:11px;height:11px;border-radius:50%;
+  background:var(--deep);border:1.5px solid var(--periwinkle);box-shadow:0 0 0 5px rgba(10,28,36,.9)}
+
+.tl2-main h3{font-size:clamp(24px,3.2vw,34px);margin:6px 0 8px}
+.tl2-main .exp-meta{font-size:12.5px;color:var(--t-low);margin:0 0 12px}
+.tl2-main .lead{font-size:15px;line-height:1.72;color:var(--leaf);max-width:none;margin-bottom:14px}
+.tl2-main p{font-size:13.8px;line-height:1.78;color:var(--t-mid);max-width:none;margin:11px 0}
+
+/* 侧栏：油画 + 吐槽 */
+.tl2-aside figure{margin:0 0 14px}
+.tl2-aside img{width:100%;max-width:340px;display:block;border-radius:3px;
+  border:1px solid var(--hair);
+  /* 老纸的暖黄在冷调页面里很跳，压一档并轻微去饱和，让它像挂在同一间屋里 */
+  filter:saturate(.62) brightness(.88) contrast(1.04);
+  transition:filter .6s var(--ease)}
+.tl2-aside:hover img{filter:saturate(.9) brightness(.97)}
+.tl2-row[data-side="R"] .tl2-aside img{margin-left:auto}
+.tl2-aside figcaption{margin-top:7px;font-size:11px;color:var(--t-low);letter-spacing:.2px}
+.tl2-aside h5{margin-top:4px;font-size:15px;font-weight:700;color:var(--t-hi)}
+.tl2-aside p{margin-top:8px;font-size:13.4px;line-height:1.75;color:var(--t-mid);max-width:none}
+
+/* 窄屏：竖线靠左，全部单列 */
+@media(max-width:860px){
+  .tl2::before{left:10px}
+  .tl2-row,.tl2-row[data-side="R"]{grid-template-columns:26px 1fr;padding:34px 0}
+  .tl2-row .tl2-main,.tl2-row[data-side="R"] .tl2-main{grid-column:2;padding:0 0 0 14px}
+  .tl2-row .tl2-aside,.tl2-row[data-side="R"] .tl2-aside{grid-column:2;padding:20px 0 0 14px;text-align:left}
+  .tl2-row[data-side="R"] .tl2-aside figcaption{text-align:left}
+  .tl2-row[data-side="R"] .tl2-aside img{margin-left:0}
+  .tl2-dot{grid-column:1;justify-self:start;margin-left:5px}
+}
