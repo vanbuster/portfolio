@@ -27,12 +27,24 @@
 <div id="stage3d" class="stage3d">
   <canvas id="scene3d"></canvas>
 
-  <span class="w3-data" data-img="assets/img/prd-ui.jpg"      data-href="#s1"></span>
-  <span class="w3-data" data-img="assets/img/prd-console.jpg" data-href="#s1"></span>
-  <span class="w3-data" data-img="assets/img/twin-chat.jpg"   data-href="#s2"></span>
-  <span class="w3-data" data-img="assets/img/twin-admin.jpg"  data-href="#s2"></span>
-  <span class="w3-data" data-img="assets/img/mogua-qigua.jpg" data-href="#s3"></span>
-  <span class="w3-data" data-img="assets/img/mogua-chart.jpg" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-prd-1.jpg" data-work="0" data-href="#s1"></span>
+  <span class="w3-data" data-img="assets/img/cap-prd-2.jpg" data-work="0" data-href="#s1"></span>
+  <span class="w3-data" data-img="assets/img/cap-prd-3.jpg" data-work="0" data-href="#s1"></span>
+  <span class="w3-data" data-img="assets/img/cap-prd-4.jpg" data-work="0" data-href="#s1"></span>
+  <span class="w3-data" data-img="assets/img/cap-prd-5.jpg" data-work="0" data-href="#s1"></span>
+  <span class="w3-data" data-img="assets/img/prd-ui.jpg" data-work="0" data-href="#s1"></span>
+  <span class="w3-data" data-img="assets/img/twin-chat.jpg" data-work="1" data-href="#s2"></span>
+  <span class="w3-data" data-img="assets/img/twin-admin.jpg" data-work="1" data-href="#s2"></span>
+  <span class="w3-data" data-img="assets/img/twin-stack.jpg" data-work="1" data-href="#s2"></span>
+  <span class="w3-data" data-img="assets/img/cap-mogua-hero.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-mogua-almanac.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-bazi-form.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-bazi-1.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-bazi-2.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-bazi-4.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-coin-altar.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-coin-tossed.jpg" data-work="2" data-href="#s3"></span>
+  <span class="w3-data" data-img="assets/img/cap-qigua-res1.jpg" data-work="2" data-href="#s3"></span>
 
   <div class="hud">
     <div class="wrap">
@@ -71,7 +83,7 @@
         <span class="n">01</span><span class="mid"><span class="ttl">PRD Copilot</span>
         <span class="sub">三道门禁。第一轮，它拒绝了我自己。</span></span>
         <span class="tg">Agent SDK · 质量门</span></a>
-      <a class="wl" href="#w2" data-img="assets/img/twin-console.jpg">
+      <a class="wl" href="#w2" data-img="assets/img/twin-stack.jpg">
         <span class="n">02</span><span class="mid"><span class="ttl">数字分身</span>
         <span class="sub">把"像一个人"拆成两件事：语气，和别瞎编。</span></span>
         <span class="tg">本地离线 · RAG</span></a>
@@ -190,7 +202,7 @@
 
     <div class="cols">
       <div class="cell rv"><h4>门 1 · 红线扫描</h4>
-        <p>全文 Grep <b>13 条红线</b>与空洞形容词表。机械可判，命中即改写成量化表述再重扫。</p></div>
+        <p>全文 Grep <b>8 条红线主表</b>与空洞形容词扩展表。机械可判，命中即改写成量化表述再重扫。</p></div>
       <div class="cell rv"><h4>门 2 · 结构自检</h4>
         <p><b>14 项</b>逐条核对。最关键的是数据引用查验：引用调研数据必须有来源，否则强制标"假设值，需验证"。</p></div>
       <div class="cell rv"><h4>门 3 · 独立评审</h4>
@@ -221,6 +233,12 @@
         <li><b>不做自评冒充独立评审</b>。起不了子代理时直接标「⚠ 自评模式」，宁可难看也不假装。</li>
       </ul>
     </div>
+    <div class="gal rv">
+        <figure><img src="assets/img/cap-prd-1.jpg" alt="首屏：三道质量门是本体，生成只是前半截" loading="lazy"><figcaption>首屏：三道质量门是本体，生成只是前半截</figcaption></figure>
+        <figure><img src="assets/img/cap-prd-3.jpg" alt="门 1 红线扫描：空洞表述字面级可 grep" loading="lazy"><figcaption>门 1 红线扫描：空洞表述字面级可 grep</figcaption></figure>
+        <figure><img src="assets/img/cap-prd-4.jpg" alt="管线：澄清一轮 ≤4 问，素材越厚问越少" loading="lazy"><figcaption>管线：澄清一轮 ≤4 问，素材越厚问越少</figcaption></figure>
+    </div>
+
   </div>
 </section>
 
@@ -262,10 +280,10 @@
     </div>
 
     <figure class="sh rv-img" style="margin-top:28px">
-      <img src="assets/img/twin-console.jpg" alt="数字分身控制台（已打码）" loading="lazy">
-      <figcaption>控制台：三个依赖的健康态一屏可见，召回链路标注「bge 语义 → tfidf → none 三级降级」，
-        右侧是七态情绪机与 intensity / security 连续量。
-        <b>涉及对方个人数据的字段已打码</b>。</figcaption>
+      <img src="assets/img/twin-stack.jpg" alt="数字分身本地依赖状态" loading="lazy">
+      <figcaption>本地依赖状态：生成与向量模型都跑在本机 Ollama，语音层接 GPT-SoVITS，
+        召回链路标注「bge 语义 → tfidf → none」三级降级——任一层不可用都能退到下一层，
+        而不是整个对话系统罢工。<b>模型与语料都不出这台机器。</b></figcaption>
     </figure>
 
     <div class="quote warn rv">
@@ -280,6 +298,11 @@
         <li><b>不做多用户</b>。它是给我自己用的，复杂度该花在人格引擎上，不是登录注册。</li>
       </ul>
     </div>
+    <div class="gal rv">
+        <figure><img src="assets/img/twin-chat.jpg" alt="对话界面（示例人格 · 非真实聊天内容）" loading="lazy"><figcaption>对话界面（示例人格 · 非真实聊天内容）</figcaption></figure>
+        <figure><img src="assets/img/twin-stack.jpg" alt="本地依赖状态：模型与语料都不出这台机器" loading="lazy"><figcaption>本地依赖状态：模型与语料都不出这台机器</figcaption></figure>
+    </div>
+
   </div>
 </section>
 
@@ -324,6 +347,58 @@
         <li><b>不做账号、付费、留存</b>。这是个玩具，玩具就该打开即用、关掉即走。</li>
       </ul>
     </div>
+    <div class="gal rv">
+        <figure><img src="assets/img/cap-bazi-1.jpg" alt="四柱排盘：十神、藏干、五行力量" loading="lazy"><figcaption>四柱排盘：十神、藏干、五行力量</figcaption></figure>
+        <figure><img src="assets/img/cap-bazi-4.jpg" alt="流年流月红绿灯与未来五年主线" loading="lazy"><figcaption>流年流月红绿灯与未来五年主线</figcaption></figure>
+        <figure><img src="assets/img/cap-coin-altar.jpg" alt="铜钱卦坛：乾隆通宝实拍贴图，罗盘式坛面" loading="lazy"><figcaption>铜钱卦坛：乾隆通宝实拍贴图，罗盘式坛面</figcaption></figure>
+        <figure><img src="assets/img/cap-qigua-res1.jpg" alt="起卦结果：本卦、互卦、变卦与体用生克" loading="lazy"><figcaption>起卦结果：本卦、互卦、变卦与体用生克</figcaption></figure>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════ 04 · 实习 ══════ -->
+<section class="detail exp" id="e04">
+  <div class="wrap">
+    <div class="d-no">04</div>
+    <h3 class="rv-line">字节跳动</h3>
+    <div class="exp-meta rv">豆包大模型 · Ocean 产品团队　·　2026.06 — 至今</div>
+    <div class="lead rv">隐私数据拿不到，我把评测集从采集改成生成：多 Agent 造内容，双模型 8 维交叉裁决，一次通过率 90.4%，再拿裁决记录反过来改 Prompt，4 轮稳到 97%+。</div>
+      <p class="rv">2026 年 6 月进豆包大模型产品团队做评测运营。第一个卡点是数据：要测模型处理图片、录音、办公文档的能力，可这些内容都在用户手机里，隐私拿不到，评测集从第一步就停住了。</p>
+      <p class="rv">我的判断是不等数据，自己造，把难点从采集挪到质检。做法是一套多 Agent 生成工作流，按内容类型路由到图像、语音、文本三类模型；产出交给两个模型交叉打分、按 8 个维度出裁决，判定冲突就自动回流重做，同一条三次不过才转人工。人工只做兜底，不然采集省下的人力会全部贴回质检。内容一次通过率 90.4%（N=156），现在是团队构建评测集的固定一环。</p>
+      <p class="rv">跑了一段时间才发现裁决记录本身有用：不合格的原因反复集中在少数几处。我把这些 Diff 攒进一个池子，让主模型分析成因、回头改各节点的 Prompt，4 轮后 pass 率稳在 97% 以上。</p>
+      <p class="rv">之后做 Function Calling 评测集，4 个专项、1600 题、3300+ case，skill 预测工具的准确率从 66.74% 到 78.42%。call_user 这类需要人接管的场景原先只能靠人盯屏，我用 ADB 做了 Agent 自主监测，GUI 点击和文本输入自动执行，盯屏人力降到零，封装成 skill 交给团队。</p>
+      <p class="rv">学到的是：数据拿不到的时候，先别忙着找数据，先确认这个问题是不是只能靠数据解。</p>
+  </div>
+</section>
+
+<!-- ══════ 05 · 实习 ══════ -->
+<section class="detail exp" id="e05">
+  <div class="wrap">
+    <div class="d-no">05</div>
+    <h3 class="rv-line">理想汽车</h3>
+    <div class="exp-meta rv">智能座舱事业部 · 智能空间产品团队　·　2025.12 — 2026.05</div>
+    <div class="lead rv">在理想汽车把车载 Agent 从车控扩到生活服务，用黄金 schedule diff 把「规划错」和「执行错」分开，工具调用准确率 78.3%→95.4%。</div>
+      <p class="rv">车载 Agent 原来的重心是车控。要让它接住生活服务，我先做的不是加功能，是把一次对话拆成七步来看：意图、槽位、工具、权限、调用、反馈、记忆。哪一步断了，故障长得不一样，据此定义了 4 类失败模式。用户一句话里可能塞进好几件事，我按可并发、互斥、可抢占三类关系，写了多意图仲裁规则。</p>
+      <p class="rv">评测集是我主导搭的，1000+ 用例，bad 和 good 大约 1:4，口径对齐 CSAE 团标。</p>
+      <p class="rv">最难的不是修 bug，是判断该谁修。一个 case 失败了，光看日志分不清是模型没规划对，还是工具链没执行到位。后来定了一条机械的判据：把 Planner 输出的 schedule JSON 和人工标注的黄金 schedule 做 diff。diff 命中，就是 Plan 决策错，去改 Prompt；schedule 一致却仍然执行失败，那就是工具链路的工程问题。这条线划开之后，1000+ 线上 case 才谈得上逐条归因。</p>
+      <p class="rv">半年下来，工具调用准确率从 78.3% 到 95.4%，多步任务完成率从 62% 到 85%，端到端时延从 4s 压到 2.5s，简单车控进 500ms 以内。</p>
+      <p class="rv">我从这段拿走的东西是：先把「错在哪」定义清楚，比修好其中任何一个 bug 都值钱。</p>
+  </div>
+</section>
+
+<!-- ══════ 06 · 实习 ══════ -->
+<section class="detail exp" id="e06">
+  <div class="wrap">
+    <div class="d-no">06</div>
+    <h3 class="rv-line">千方科技</h3>
+    <div class="exp-meta rv">智慧交通事业部 · Omni-T 智慧高速预警　·　2025.06 — 2025.11</div>
+    <div class="lead rv">驻场三天、访谈八人、翻完 1200 条日志后定下 6 大类 18 子类标注规范，横评五条技术路线选定 YOLO 加大模型级联压误报，再用三按钮回流和三条漏报发现路径把指标本身管住：告警有效采纳率 60% 到 78%，首报时延 10–15 分钟压到 60 秒，试点约 300 公里、60 路摄像头。</div>
+      <p class="rv">千方是我的第一段实习，做高速公路的事件预警。上来没先写方案，去监控中心跟了三天班，访谈调度、路政、养护八个人，回来又翻了 1200 条历史事件日志。问题这才对上：调度侧有漏报，路政看到告警读不出该派谁去，上报格式每个人一套。我照这三类问题定了 6 大类 18 子类的标注规范，先让所有人说同一种话。</p>
+      <p class="rv">技术路线横评了五条，从纯 YOLO、纯 VLM 端到端，到海康一体化、TVM-R1，再到 YOLO 加大模型级联。选级联的理由不复杂：这个场景里卡住落地的不是漏检，是误报，而召回这一端 YOLO 已经保底了。所以边端跑 YOLO 管召回，云端大模型只干复核这一件事，把误报压下去。横评这一步的价值不在于最后选了哪条，在于让「为什么不选另外四条」有据可查。</p>
+      <p class="rv">指标上我改过一次口径。一开始定的是「告警有效采纳率」，后来发现这个数系统自己就能刷高——少报就行，报得越少，报对的比例越好看。于是补了两件事：给调度员做三个按钮，把反馈按语义分进三个独立 Case 池；另外开三条独立发现漏报的路径——重大事故倒查录像、相邻摄像头交叉比对、拿交警工单求差集。漏报这一侧有了自己的数，采纳率才算数。</p>
+      <p class="rv">试点铺了约 300 公里、60 路摄像头。告警有效采纳率从 60% 到 78%，首报时延从 10–15 分钟压到 60 秒。留下来的习惯是，定完一个指标先花五分钟想想它能被怎么刷；想不出来，通常说明我还没想透。</p>
   </div>
 </section>
 

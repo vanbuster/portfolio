@@ -322,3 +322,20 @@ body.has3d .detail:first-of-type{border-top:1px solid var(--hair)}
   mix-blend-mode:multiply}
 @media(max-width:980px){.duo-fig img{max-height:32svh}
   .slide{min-height:auto;padding:64px 0}}
+
+/* ── 作品图廊：真实截图，两列自适应 ── */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+     gap:18px;margin:30px 0 6px;max-width:var(--max)}
+.gal figure{margin:0}
+.gal img{width:100%;display:block;border-radius:4px;border:1px solid var(--hair);
+         background:var(--surface);
+         /* 压一档饱和，跟 3D 画板同一处理，避免截图“贴上去”的突兀感 */
+         filter:saturate(.86) brightness(.94);transition:filter .5s var(--ease),transform .5s var(--ease)}
+.gal figure:hover img{filter:none;transform:translateY(-3px)}
+.gal figcaption{margin-top:9px;font-size:12.5px;color:var(--t-low);line-height:1.6}
+@media(max-width:700px){.gal{grid-template-columns:1fr;gap:14px}}
+
+/* ── 实习章节 ── */
+.detail.exp .exp-meta{font-size:13px;letter-spacing:.4px;color:var(--t-low);margin:-6px 0 14px}
+.detail.exp .lead{color:var(--leaf);max-width:720px;line-height:1.7;font-size:16px}
+.detail.exp p{max-width:720px}

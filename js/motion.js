@@ -204,7 +204,12 @@
   const hud = [...document.querySelectorAll('.hud-item')];
   if (stage3d && hud.length) {
     const n = hud.length;
-    const boards = document.querySelectorAll('.w3-data').length || n;
+    const boardEls = [...document.querySelectorAll('.w3-data')];
+    const boards = boardEls.length || n;
+    // 每个作品的画板数不等（PRD 6 / 数字分身 3 / 墨卦 9），
+    // 所以按 data-work 显式归属，不能再用 boards/n 均分——均分会让 HUD 和画面错位。
+    const workOf = boardEls.map(el => Number(el.dataset.work));
+    const hasWork = workOf.length && workOf.every(v => Number.isFinite(v));
     const perWork = Math.max(1, Math.round(boards / n));
     const upd = () => {
       const r = stage3d.getBoundingClientRect();
@@ -213,7 +218,8 @@
       // 优先用 3D 场景报告的真实最近画板；没有 3D 时退回按比例分段
       const raw = document.body.dataset.board;
       const idx = raw !== undefined
-        ? Math.min(n - 1, Math.floor(Number(raw) / perWork))
+        ? (hasWork ? Math.min(n - 1, workOf[Number(raw)] ?? 0)
+                   : Math.min(n - 1, Math.floor(Number(raw) / perWork)))
         : Math.min(n - 1, Math.floor(p / (1 / (n + 0.15))));
       const inStage = p < 0.97;
       hud.forEach((el, i) => el.classList.toggle('on', inStage && i === idx));
