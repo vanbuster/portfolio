@@ -31,6 +31,9 @@
       const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
       requestAnimationFrame(raf);
     }
+    // 3D 走廊的「回落吸附」要用同一个滚动器。自己调 window.scrollTo 会和
+    // Lenis 的惯性互相拉扯，表现为吸附完又被惯性带走。挂出去供 scene3d 用。
+    window.__lenis = lenis;
   }
 
   /* ── 锚点走 Lenis，否则和惯性滚动打架 ── */

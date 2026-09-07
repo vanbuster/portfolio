@@ -75,7 +75,7 @@ function init() {
     group.add(edge);
 
     scene.add(group);
-    boards.push({ group, mesh, baseX: x, i });
+    boards.push({ group, mesh, edge, baseX: x, i });
   });
 
   /* ── 悬浮微粒：给空间一点"水里有东西"的实感 ── */
@@ -97,8 +97,31 @@ function init() {
   /* 滚动行程必须跟着画板数走。CSS 里那个 height 是按 6 块写死的，
      加到 18 块后镜头会在 30% 处就冲到最后一块、HUD 直接熄灭。
      这里按每块 ~72vh 推导，以后再加图也不会脱节。 */
-  stage.style.height = Math.round(WORKS.length * 72 + 90) + 'vh';
+  stage.style.height = Math.round(WORKS.length * 86 + 90) + 'vh';
   let camZ = 10, targetZ = 10, mx = 0, my = 0, tmx = 0, tmy = 0;
+
+  /* ── 分段驻留：每块画板有一个「特写区间」，镜头在它正前方近乎停住 ──
+     原来是 progress 线性映射到 z，画板匀速掠过，根本来不及看清内容。
+     现在把每一段滚动拆成「平台—过渡—平台」：前后各 DWELL/2 的输入范围
+     不产生位移（镜头驻留），中间那段才走完整段距离。 */
+  const NB = WORKS.length;
+  const VIEW = 7.6;                                  // 停在画板前方多远最好看
+  const DWELL = 0.54;                                // 每段里驻留占的比例
+  const idealZ = (i) => -i * SPACING + VIEW;
+  const smooth = (x) => x * x * (3 - 2 * x);
+
+  function camZAt(p) {
+    if (NB === 1) return idealZ(0);
+    const u = p * (NB - 1);
+    const i = Math.min(NB - 2, Math.floor(u));
+    const f = u - i;
+    const h = DWELL / 2;
+    let g;
+    if (f <= h) g = 0;
+    else if (f >= 1 - h) g = 1;
+    else g = smooth((f - h) / (1 - DWELL));
+    return idealZ(i) + (idealZ(i + 1) - idealZ(i)) * g;
+  }
 
   function progress() {
     const r = stage.getBoundingClientRect();
@@ -106,8 +129,33 @@ function init() {
     if (total <= 0) return 0;
     return Math.min(1, Math.max(0, -r.top / total));
   }
-  function onScroll() { targetZ = 10 - progress() * TRAVEL; }
+  function onScroll() { targetZ = camZAt(progress()); lastScrollAt = performance.now(); }
   addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── 回落吸附：停止滚动后落到最近的驻留中心 ──
+     必须走 Lenis，自己调 scrollTo 会和惯性互相拉扯。
+     两个护栏：① 只在用户真的停下来（IDLE_MS）后才动手，避免还在滚时被拽回；
+     ② 已经很接近目标就不动，否则会有一次多余的微跳。 */
+  const IDLE_MS = 260;
+  let lastScrollAt = performance.now();
+  let snapped = false;
+
+  function snapToNearest() {
+    const total = stage.offsetHeight - innerHeight;
+    if (total <= 0 || NB < 2) return;
+    const i = Math.round(progress() * (NB - 1));
+    const stageTop = stage.getBoundingClientRect().top + scrollY;
+    const y = stageTop + (i / (NB - 1)) * total;
+    if (Math.abs(y - scrollY) < 8) { snapped = true; return; }
+    snapped = true;
+    const lenis = window.__lenis;
+    if (lenis && typeof lenis.scrollTo === 'function') {
+      lenis.scrollTo(y, { duration: .85, easing: (t) => 1 - Math.pow(1 - t, 3) });
+    } else {
+      scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
+
   onScroll();
 
   addEventListener('pointermove', (e) => {
@@ -129,6 +177,7 @@ function init() {
     .observe(stage);
 
   const clock = new THREE.Clock();
+  let lastFocusQ = -1;
   renderer.setAnimationLoop(() => {
     if (!visible) return;
     const t = clock.getElapsedTime();
@@ -137,33 +186,61 @@ function init() {
     mx   += (tmx - mx) * .05;
     my   += (tmy - my) * .05;
 
+    /* 停止滚动后回落到最近驻留中心；用户一动就重新解锁 */
+    const idle = performance.now() - lastScrollAt;
+    if (!REDUCE && visible) {
+      if (idle > IDLE_MS && !snapped) snapToNearest();
+      if (idle < IDLE_MS) snapped = false;
+    }
+
+    /* 静止微浮：只在吸附完成且确实闲置时开，滚动中开会和阻尼叠成抖动 */
+    const settle = REDUCE ? 0 : Math.min(1, Math.max(0, (idle - 700) / 600));
+    const bob = Math.sin(t * .55) * .085 * settle;
+
     camera.position.z = camZ;
     camera.position.x = mx * 2.2;                       // 鼠标微幅偏移 = 手持镜头感
-    camera.position.y = -my * 1.2;
+    camera.position.y = -my * 1.2 + bob;
     camera.lookAt(0, 0, camZ - 12);
+
+    // 先找出最近的画板与它的「聚焦度」：1 = 正处在特写机位，0 = 远离
+    let best = 0, bd = 1e9;
+    for (const b of boards) {
+      const d = Math.abs(idealZ(b.i) - camZ);
+      if (d < bd) { bd = d; best = b.i; }
+    }
+    const focus = smooth(Math.min(1, Math.max(0, 1 - bd / (SPACING * .46))));
 
     boards.forEach((b) => {
       // 画板随镜头轻微转向，永远略微朝着观众
-      const d = b.group.position.z - camZ;
       b.group.rotation.y = THREE.MathUtils.clamp(-b.baseX * .045 + mx * .12, -.5, .5);
       b.group.rotation.x = my * .06;
-      b.group.position.y += Math.sin(t * .5 + b.i) * .0012;   // 极缓的浮动
-      b.mesh.material.opacity = 1;
+      b.group.position.y += Math.sin(t * .5 + b.i) * .0012 + (b.i === best ? bob * .012 : 0);
+
+      /* 聚焦的那块恢复全亮度并微微推近：原来所有画板都压到 0x7c93a4
+         「沉进水色」，好看但正是用户说的看不清。只在特写区间还原。 */
+      const k = (b.i === best) ? focus : 0;
+      const g = 0x7c / 255 + (1 - 0x7c / 255) * k;
+      const gg = 0x93 / 255 + (1 - 0x93 / 255) * k;
+      const gb = 0xa4 / 255 + (1 - 0xa4 / 255) * k;
+      if (b.mesh.material.map) b.mesh.material.color.setRGB(g, gg, gb);
+      const s = 1 + .085 * k;
+      b.group.scale.set(s, s, 1);
+      if (b.edge) b.edge.material.opacity = .5 + .38 * k;
     });
     pts.rotation.y = t * .006;
 
-    // 把「当前最近的画板」交给 HUD —— 之前用滚动比例反推分段是猜的，
-    // 画板数一变就对不上。这里直接取真实的镜头-画板距离。
-    let best = 0, bd = 1e9;
-    for (const b of boards) {
-      const d = Math.abs(b.group.position.z - camZ);
-      if (d < bd) { bd = d; best = b.i; }
-    }
     if (document.body.dataset.board !== String(best)) {
       document.body.dataset.board = String(best);
       // 必须主动通知：HUD 只在 scroll 事件里重算，而这个值是渲染循环里
       // 异步变的（镜头有阻尼，滚动停下后才收敛）→ 不发事件 HUD 永远慢一拍
       dispatchEvent(new CustomEvent('board:change', { detail: best }));
+    }
+    // 卡片要跟着聚焦度连续变化，不能只在换板时通知一次
+    const fq = Math.round(focus * 20) / 20;
+    if (fq !== lastFocusQ) {
+      lastFocusQ = fq;
+      document.documentElement.style.setProperty('--board-focus', String(fq));
+      dispatchEvent(new CustomEvent('board:focus', { detail: { index: best, focus: fq } }));
     }
 
     renderer.render(scene, camera);

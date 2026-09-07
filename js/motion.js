@@ -246,3 +246,90 @@
     });
   });
 })();
+
+/* ══════════════════════════════════════════════════════════════════════
+   特写卡片：跟随 3D 走廊的驻留区间弹出
+   数据来自 .w3-data 的 data-* —— 和画板同一个真相源，不另建一份。
+   ══════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  const card = document.getElementById('focusCard');
+  const stage = document.getElementById('stage3d');
+  if (!card || !stage) return;
+
+  const data = [...document.querySelectorAll('.w3-data')].map((el) => ({
+    title: el.dataset.title || '', note: el.dataset.note || '',
+    href: el.dataset.href || '#', work: Number(el.dataset.work || 0),
+  }));
+  if (!data.length) return;
+
+  const elNo = document.getElementById('fcNo');
+  const elTitle = document.getElementById('fcTitle');
+  const elNote = document.getElementById('fcNote');
+  const elLink = document.getElementById('fcLink');
+  card.querySelector('.fc-no i').textContent = '/ ' + data.length;
+
+  let cur = -1;
+  function paint(i) {
+    const d = data[i]; if (!d) return;
+    elNo.textContent = String(i + 1).padStart(2, '0');
+    elTitle.textContent = d.title;
+    elNote.textContent = d.note;
+    elLink.setAttribute('href', d.href);
+    // 画板 x 在 scene3d 里是 (i%2===0 ? -1 : 1)*3.4：偶数在左，奇数在右。
+    // 卡片去对侧，data-side 记的是「画板在哪边」。
+    document.body.dataset.side = (i % 2 === 0) ? 'L' : 'R';
+    cur = i;
+  }
+  paint(0);
+
+  addEventListener('board:change', (e) => {
+    const i = Number(e.detail);
+    if (Number.isFinite(i) && i !== cur) paint(i);
+  });
+
+  addEventListener('board:focus', (e) => {
+    const f = (e.detail && e.detail.focus) || 0;
+    // 阈值要留迟滞，否则在临界点会闪
+    const on = document.body.classList.contains('fc-on');
+    if (!on && f > 0.42) document.body.classList.add('fc-on');
+    else if (on && f < 0.24) document.body.classList.remove('fc-on');
+  });
+
+  // 走出 3D 区就收起，避免卡片挂在后面的章节上
+  new IntersectionObserver(([en]) => {
+    if (!en.isIntersecting) document.body.classList.remove('fc-on');
+  }, { threshold: 0 }).observe(stage);
+})();
+
+/* ══════════════════════════════════════════════════════════════════════
+   堆叠幻灯片的「退场」：下一张升起覆盖时，上一张的内容随覆盖率缩小、
+   淡出、轻微失焦并上移，读起来是「第一张退场、第二张呈现」，
+   而不是两张硬叠在一起。
+   缩放只作用于 .wrap（内容层），.slide 自身保持不变，圆角与背景不变形。
+   ══════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  if (typeof window.gsap === 'undefined' || !window.ScrollTrigger) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const slides = window.gsap.utils.toArray('.deck .slide');
+  if (slides.length < 2) return;
+
+  slides.forEach((slide, i) => {
+    const next = slides[i + 1];
+    if (!next) return;
+    const inner = slide.querySelector('.wrap');
+    if (!inner) return;
+    window.gsap.fromTo(inner,
+      { scale: 1, opacity: 1, filter: 'blur(0px)', y: 0 },
+      {
+        scale: .86, opacity: .18, filter: 'blur(5px)', y: -34, ease: 'none',
+        scrollTrigger: {
+          trigger: next,
+          start: 'top bottom',   // 下一张刚露头
+          end: 'top top',        // 下一张完全覆盖
+          scrub: .55,            // 小数而非 true：留一点惯性拖尾，不死绑滚动条
+        },
+      });
+  });
+})();
