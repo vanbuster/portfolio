@@ -385,8 +385,9 @@ body.fc-on[data-side="R"] .focus-card{
 @media(prefers-reduced-motion:reduce){
   .focus-card{transition:opacity .2s linear;filter:none!important}
 }
-/* 卡片落在左侧时与 HUD 抢同一块位置 —— HUD 是作品级标签，让位给更具体的卡片 */
-body.fc-on[data-side="R"] .hud-item.on{opacity:.12;transform:translateX(-10px)}
+/* 卡片一出现就完全接管：HUD 是作品级标签，卡片是这一块画板的具体说明。
+   只压到 .12 不够——半透明卡片会把 HUD 的大标题透出来，两层字糊在一起。 */
+body.fc-on .hud-item.on{opacity:0;transform:translateY(-14px);pointer-events:none}
 
 /* ── 堆叠退场：上一张随覆盖率缩小 + 覆盖者投下大面积柔和顶影 ──────────
    投影画在「覆盖者」自身框外的上方，于是它落在被覆盖的那张上，
