@@ -34,7 +34,7 @@ function init() {
   const BG = 0x0a1c24;                       // --abyss
   scene.background = new THREE.Color(BG);
   // 雾是纵深的来源：远处的画板自然溶进底色，不需要手动淡出
-  scene.fog = new THREE.FogExp2(BG, 0.052);
+  scene.fog = new THREE.FogExp2(BG, 0.030);   // 0.052 在驻留机位 d≈7.6 处仍有 14.4% 雾量，正压在特写的那块上
 
   const camera = new THREE.PerspectiveCamera(52, innerWidth / innerHeight, 0.1, 200);
   camera.position.set(0, 0, 10);
@@ -94,7 +94,7 @@ function init() {
   });
 
   /* ── 悬浮微粒：给空间一点"水里有东西"的实感 ── */
-  const N = 900;
+  const N = 260;                       // 900 颗纯装饰，减量换帧时间
   const pos = new Float32Array(N * 3);
   for (let i = 0; i < N; i++) {
     pos[i * 3]     = (Math.random() - .5) * 46;
@@ -103,7 +103,7 @@ function init() {
   }
   const pts = new THREE.Points(
     new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(pos, 3)),
-    new THREE.PointsMaterial({ color: 0xbdc0cf, size: .055, transparent: true, opacity: .5 }));
+    new THREE.PointsMaterial({ color: 0xbdc0cf, size: .085, transparent: true, opacity: .28 }));
   scene.add(pts);
 
   /* ── 滚动 → 镜头 Z ── */
@@ -240,9 +240,13 @@ function init() {
       if (b.mesh.material.map) b.mesh.material.color.setRGB(g, gg, gb);
       const s = 1 + .085 * k;
       b.group.scale.set(s, s, 1);
+      /* 聚焦时把画板拉向画面中心。两个理由：
+         ① 宽比例的图（如 1000×358 的四柱排盘）半宽 3.0 + 偏移 3.4 = 6.4，
+            超过该距离上的视锥半宽 ≈5.9，右缘会被裁掉；
+         ② 居中本来就是「最佳观察位」，与驻留/吸附是同一个意图。 */
+      b.group.position.x = b.baseX * (1 - .78 * k);
       if (b.edge) b.edge.material.opacity = .5 + .38 * k;
     });
-    pts.rotation.y = t * .006;
 
     if (document.body.dataset.board !== String(best)) {
       document.body.dataset.board = String(best);
