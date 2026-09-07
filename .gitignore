@@ -1,2 +1,4 @@
 .DS_Store
 *.log
+_shot-*.png
+_verify-*.png
